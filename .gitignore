@@ -1,0 +1,34 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Build output
+.next/
+out/
+dist/
+
+# Environment variables
+.env*
+!.env.example
+
+# Logs
+*.log
+
+# Testing
+coverage/
+*.lcov
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE configs
+.vscode/
+.idea/
+
+# Misc
+*.tgz
+*.swp
+*.swo

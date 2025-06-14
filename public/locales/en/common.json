@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "title": "Lavorino",
+    "providers": "Providers",
+    "bookings": "My Bookings",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "login": {
+    "customerTitle": "Welcome to Lavorino",
+    "customerSubtitle": "Book your next service with ease",
+    "providerTitle": "Provider Login",
+    "providerSubtitle": "Manage your services and bookings",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign In",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithFacebook": "Continue with Facebook",
+    "continueWithApple": "Continue with Apple",
+    "demoLogin": "Demo Login",
+    "switchToCustomer": "Switch to Customer Login",
+    "switchToBusiness": "Switch to Provider Login"
+  },
+  "gdpr": {
+    "title": "Welcome to Lavorino",
+    "intro": "Before you continue, we need your consent to process your data in accordance with GDPR regulations.",
+    "dataCollection": {
+      "title": "Data We Collect",
+      "description": "We collect the following information to provide you with our services:",
+      "items": {
+        "name": "Your name and contact information",
+        "email": "Email address for communication",
+        "profile": "Profile information you choose to share",
+        "usage": "Usage data to improve our services"
+      }
+    },
+    "rights": {
+      "title": "Your Rights",
+      "items": {
+        "access": "Access your personal data",
+        "correction": "Correct inaccurate data",
+        "deletion": "Request deletion of your data",
+        "portability": "Data portability",
+        "restriction": "Restrict data processing",
+        "objection": "Object to data processing"
+      }
+    },
+    "consent": "By clicking \"Accept\", you agree to our data processing practices and confirm that you have read our Privacy Policy.",
+    "accept": "Accept and Continue",
+    "decline": "Decline"
+  }
+} 
