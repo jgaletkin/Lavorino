@@ -7,9 +7,9 @@ export function useProviderSearch(filters: ProviderFilters) {
     queryKey: ['providers', filters],
     queryFn: () => getProviders({
       search: filters.search,
-      rating: filters.rating,
-      priceRange: filters.priceRange,
-      distance: filters.distance,
+      rating: filters.rating ?? undefined,
+      priceRange: filters.priceRange ?? undefined,
+      distance: filters.distance ?? undefined,
     }),
   })
 } 
