@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { GlobeAltIcon } from '@heroicons/react/24/outline'
 
-export default function LoginPage() {
+function LoginContent() {
   const { t, i18n } = useTranslation(['login', 'common'])
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -215,5 +215,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
   )
 } 

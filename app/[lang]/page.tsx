@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { GlobeAltIcon } from '@heroicons/react/24/outline'
 import { useTranslation } from 'next-i18next'
 
-export default function LoginPage({ params }: { params: { lang: string } }) {
+function LoginContent({ params }: { params: { lang: string } }) {
   const { t, i18n } = useTranslation(['login', 'common'])
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -195,5 +195,13 @@ export default function LoginPage({ params }: { params: { lang: string } }) {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function LoginPage({ params }: { params: { lang: string } }) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent params={params} />
+    </Suspense>
   )
 } 
