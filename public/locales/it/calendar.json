@@ -1,0 +1,12 @@
+{
+  "title": "Calendario",
+  "legend": {
+    "confirmed": "Appuntamenti Confermati",
+    "suggested": "Appuntamenti Suggeriti"
+  },
+  "views": {
+    "month": "Mese",
+    "week": "Settimana",
+    "day": "Giorno"
+  }
+} 

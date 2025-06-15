@@ -1,0 +1,11 @@
+[phases.setup]
+run = "npm install"
+
+[phases.build]
+run = "npm run build"
+
+[phases.start]
+run = "npm run start"
+
+[env]
+PORT = "3000"

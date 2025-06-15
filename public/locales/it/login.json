@@ -1,0 +1,12 @@
+{
+  "customerTitle": "Accesso Cliente",
+  "customerSubtitle": "Accedi al tuo account",
+  "businessTitle": "Accesso Fornitore",
+  "businessSubtitle": "Accedi per gestire i tuoi servizi",
+  "continueWithGoogle": "Accedi con Google",
+  "continueWithFacebook": "Accedi con Facebook",
+  "continueWithApple": "Accedi con Apple",
+  "demoLogin": "Prova Account Demo",
+  "switchToCustomer": "Sei un cliente? Accedi qui",
+  "switchToBusiness": "Sei un fornitore? Accedi qui"
+} 

@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "title": "Lavorino",
+    "providers": "Fornitori",
+    "bookings": "Le Mie Prenotazioni",
+    "profile": "Profilo",
+    "logout": "Esci"
+  },
+  "login": {
+    "customerTitle": "Benvenuto su Lavorino",
+    "customerSubtitle": "Prenota il tuo prossimo servizio con facilità",
+    "providerTitle": "Accesso Fornitore",
+    "providerSubtitle": "Gestisci i tuoi servizi e prenotazioni",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Accedi",
+    "forgotPassword": "Password dimenticata?",
+    "noAccount": "Non hai un account?",
+    "signUp": "Registrati",
+    "continueWithGoogle": "Continua con Google",
+    "continueWithFacebook": "Continua con Facebook",
+    "continueWithApple": "Continua con Apple",
+    "demoLogin": "Accesso Demo",
+    "switchToCustomer": "Passa all'accesso Cliente",
+    "switchToBusiness": "Passa all'accesso Fornitore"
+  },
+  "gdpr": {
+    "title": "Benvenuto su Lavorino",
+    "intro": "Prima di continuare, abbiamo bisogno del tuo consenso per elaborare i tuoi dati in conformità con il GDPR.",
+    "dataCollection": {
+      "title": "Dati che Raccogliamo",
+      "description": "Raccogliamo le seguenti informazioni per fornirti i nostri servizi:",
+      "items": {
+        "name": "Nome e informazioni di contatto",
+        "email": "Indirizzo email per le comunicazioni",
+        "profile": "Informazioni del profilo che scegli di condividere",
+        "usage": "Dati di utilizzo per migliorare i nostri servizi"
+      }
+    },
+    "rights": {
+      "title": "I Tuoi Diritti",
+      "items": {
+        "access": "Accedere ai tuoi dati personali",
+        "correction": "Correggere dati inesatti",
+        "deletion": "Richiedere la cancellazione dei tuoi dati",
+        "portability": "Portabilità dei dati",
+        "restriction": "Limitare l'elaborazione dei dati",
+        "objection": "Opporti all'elaborazione dei dati"
+      }
+    },
+    "consent": "Cliccando su \"Accetta\", accetti le nostre pratiche di elaborazione dei dati e confermi di aver letto la nostra Informativa sulla Privacy.",
+    "accept": "Accetta e Continua",
+    "decline": "Rifiuta"
+  }
+} 

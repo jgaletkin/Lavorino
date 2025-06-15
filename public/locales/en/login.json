@@ -1,0 +1,12 @@
+{
+  "customerTitle": "Client Login",
+  "customerSubtitle": "Sign in to access your account",
+  "businessTitle": "Provider Login",
+  "businessSubtitle": "Sign in to manage your services",
+  "continueWithGoogle": "Sign in with Google",
+  "continueWithFacebook": "Sign in with Facebook",
+  "continueWithApple": "Sign in with Apple",
+  "demoLogin": "Try Demo Account",
+  "switchToCustomer": "Are you a client? Sign in here",
+  "switchToBusiness": "Are you a provider? Sign in here"
+} 
