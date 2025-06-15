@@ -16,6 +16,5 @@ export interface Provider {
   priceRange: [number, number]
   distance: number
   tags: string[]
-  calendlyUrl: string
   services: Service[]
 } 

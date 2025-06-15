@@ -66,7 +66,6 @@ export const mockProviders: Provider[] = [
     priceRange: [50, 100],
     distance: 3.5,
     tags: ['Elettricista', 'Installazione', 'Manutenzione'],
-    calendlyUrl: 'https://calendly.com/tecnici-rossi',
     services: [
       {
         id: 's1',
@@ -101,7 +100,6 @@ export const mockProviders: Provider[] = [
     priceRange: [60, 120],
     distance: 2.8,
     tags: ['Idraulico', 'Riparazioni', 'Installazione'],
-    calendlyUrl: 'https://calendly.com/idraulici-bianchi',
     services: [
       {
         id: 's4',
@@ -136,7 +134,6 @@ export const mockProviders: Provider[] = [
     priceRange: [80, 150],
     distance: 5.2,
     tags: ['Costruzione', 'Ristrutturazione', 'Sostenibilità'],
-    calendlyUrl: 'https://calendly.com/costruzioni-verdi',
     services: [
       {
         id: 's7',
@@ -171,7 +168,6 @@ export const mockProviders: Provider[] = [
     priceRange: [40, 80],
     distance: 1.5,
     tags: ['Manutenzione', 'Riparazioni', 'Bricolage'],
-    calendlyUrl: 'https://calendly.com/tuttofare-romano',
     services: [
       {
         id: 's10',
@@ -206,7 +202,6 @@ export const mockProviders: Provider[] = [
     priceRange: [70, 130],
     distance: 4.1,
     tags: ['IT', 'Supporto Tecnico', 'Installazione'],
-    calendlyUrl: 'https://calendly.com/tech-solutions-milano',
     services: [
       {
         id: 's13',
@@ -241,7 +236,6 @@ export const mockProviders: Provider[] = [
     priceRange: [30, 60],
     distance: 2.3,
     tags: ['Pulizie', 'Manutenzione', 'Professionale'],
-    calendlyUrl: 'https://calendly.com/pulizie-napoli',
     services: [
       {
         id: 's20',
@@ -269,7 +263,6 @@ export const mockProviders: Provider[] = [
     priceRange: [40, 90],
     distance: 3.7,
     tags: ['Giardinaggio', 'Manutenzione', 'Progettazione'],
-    calendlyUrl: 'https://calendly.com/giardini-torino',
     services: [
       {
         id: 's16',
@@ -297,7 +290,7 @@ export const mockProviders: Provider[] = [
     priceRange: [90, 160],
     distance: 4.5,
     tags: ['Sicurezza', 'Videosorveglianza', 'Installazione'],
-    calendlyUrl: 'https://calendly.com/sicurezza-roma'
+    services: []
   },
   {
     id: '9',
@@ -309,7 +302,7 @@ export const mockProviders: Provider[] = [
     priceRange: [70, 140],
     distance: 3.2,
     tags: ['Climatizzazione', 'Condizionamento', 'Manutenzione'],
-    calendlyUrl: 'https://calendly.com/climatizzazione-firenze'
+    services: []
   },
   {
     id: '10',
@@ -321,7 +314,6 @@ export const mockProviders: Provider[] = [
     priceRange: [100, 200],
     distance: 4.5,
     tags: ['Trasloco', 'Trasporto', 'Montaggio'],
-    calendlyUrl: 'https://calendly.com/traslochi-veloci',
     services: [
       {
         id: 's18',

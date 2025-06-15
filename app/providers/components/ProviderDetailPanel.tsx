@@ -6,7 +6,6 @@ import StarRating from '@/components/StarRating'
 import DistanceDisplay from '@/components/DistanceDisplay'
 import ProviderTags from './ProviderTags'
 import ProviderPriceRange from './ProviderPriceRange'
-import ProviderCalendlyEmbed from './ProviderCalendlyEmbed'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
@@ -136,21 +135,6 @@ export default function ProviderDetailPanel({
             ))}
           </div>
         </div>
-
-        {/* Calendly Embed */}
-        {provider.calendlyUrl && (
-          <div className="mt-8">
-            <h3 className="text-xl font-semibold">{t('providers:provider.book')}</h3>
-            <div className="mt-4">
-              <iframe
-                src={provider.calendlyUrl}
-                width="100%"
-                height="600"
-                frameBorder="0"
-              />
-            </div>
-          </div>
-        )}
       </div>
     </div>
   )

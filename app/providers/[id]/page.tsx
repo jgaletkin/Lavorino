@@ -5,7 +5,6 @@ import StarRating from '@/components/StarRating'
 import DistanceDisplay from '@/components/DistanceDisplay'
 import ProviderTags from '../components/ProviderTags'
 import ProviderPriceRange from '../components/ProviderPriceRange'
-import ProviderCalendlyEmbed from '../components/ProviderCalendlyEmbed'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
 import EmptyState from '@/components/EmptyState'
 
@@ -60,7 +59,7 @@ export default function ProviderPage({ params }: ProviderPageProps) {
           </div>
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:col-span-2">
+            <div className="md:col-span-3">
               <div className="prose max-w-none">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">About</h2>
                 <p className="text-gray-600">{provider.description}</p>
@@ -74,15 +73,6 @@ export default function ProviderPage({ params }: ProviderPageProps) {
                   Pricing
                 </h2>
                 <ProviderPriceRange priceRange={provider.priceRange} />
-              </div>
-            </div>
-
-            <div className="md:col-span-1">
-              <div className="sticky top-8">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                  Book a Session
-                </h2>
-                <ProviderCalendlyEmbed calendlyUrl={provider.calendlyUrl} />
               </div>
             </div>
           </div>

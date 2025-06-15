@@ -63,14 +63,6 @@ export default function ProviderModal({ provider, onClose }: ProviderModalProps)
             <span>Distance:</span>
             <span>{provider.distance} km away</span>
           </div>
-          <a
-            href={provider.calendlyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block w-full text-center bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300"
-          >
-            Book Now
-          </a>
         </div>
       </div>
     </div>
