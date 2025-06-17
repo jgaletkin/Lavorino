@@ -1,21 +1,21 @@
-# nixpacks.toml
+[variables]
+NODE_ENV = "development"
+PORT = "3000"
 
 [phases.setup]
-nixPkgs = ['nodejs', 'coreutils']
+providers = ["nodejs_20", "npm-10_x"]
 
 [phases.install]
-cmds = ['npm install']
+cmds = [
+  "cd /app",
+  "npm ci"
+]
 
 [phases.build]
-cmds = ['npm run build']
-
-[phases.start]
-cmd = 'npx next start -p $PORT'
+cmds = [
+  "cd /app", 
+  "npm run build"
+]
 
 [start]
-# This tells Nixpacks what port your app listens on
-cmd = 'npx next start -p $PORT'
-# $PORT is typically injected by hosting platforms
-
-[variables]
-NODE_ENV = 'dev'
+cmd = "cd /app && npm start"
