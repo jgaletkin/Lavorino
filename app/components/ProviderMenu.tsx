@@ -22,13 +22,28 @@ export default function ProviderMenu() {
   }, [])
 
   const handleLogout = () => {
-    // Clear any provider-specific data from localStorage
+    // Clear all provider-related data from localStorage
     localStorage.removeItem('providers')
+    localStorage.removeItem('providerData')
+    localStorage.removeItem('providerToken')
+    localStorage.removeItem('providerId')
+    localStorage.removeItem('providerName')
+    localStorage.removeItem('providerEmail')
+    localStorage.removeItem('providerPhone')
+    localStorage.removeItem('providerAddress')
+    localStorage.removeItem('providerServices')
+    localStorage.removeItem('providerSchedule')
+    localStorage.removeItem('providerTransactions')
+    
+    // Clear any session data
+    sessionStorage.clear()
+    
+    // Redirect to provider login page
     router.push('/provider-login')
   }
 
   return (
-    <div className="relative" ref={menuRef}>
+    <div className="relative z-50" ref={menuRef}>
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className="p-2 text-gray-600 hover:text-gray-900 focus:outline-none"
@@ -47,7 +62,7 @@ export default function ProviderMenu() {
       </button>
 
       {isMenuOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
           <div className="py-1" role="menu" aria-orientation="vertical">
             <button
               onClick={() => {
