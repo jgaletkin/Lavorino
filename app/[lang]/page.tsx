@@ -1,5 +1,11 @@
 import LoginContent from '../components/LoginContent'
 
-export default function Page() {
+interface PageProps {
+  params: {
+    lang: string
+  }
+}
+
+export default function Page({ params }: PageProps) {
   return <LoginContent />
 }

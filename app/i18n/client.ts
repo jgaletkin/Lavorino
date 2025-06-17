@@ -5,21 +5,24 @@ import { initReactI18next } from 'react-i18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import { getOptions } from './settings';
 
-i18next
-  .use(initReactI18next)
-  .use(
-    resourcesToBackend(
-      (language: string, namespace: string) =>
-        import(`../../public/locales/${language}/${namespace}.json`)
+// Initialize i18next only on the client side
+if (typeof window !== 'undefined') {
+  i18next
+    .use(initReactI18next)
+    .use(
+      resourcesToBackend(
+        (language: string, namespace: string) =>
+          import(`../../public/locales/${language}/${namespace}.json`)
+      )
     )
-  )
-  .init({
-    ...getOptions(),
-    lng: 'en', // Set English as default
-    fallbackLng: 'en',
-    detection: {
-      order: ['localStorage', 'navigator'],
-    },
-  });
+    .init({
+      ...getOptions(),
+      lng: 'en', // Set English as default
+      fallbackLng: 'en',
+      detection: {
+        order: ['localStorage', 'navigator'],
+      },
+    });
+}
 
 export default i18next; 

@@ -1,5 +1,6 @@
-import LoginWrapper from './components/LoginWrapper'
+import { redirect } from 'next/navigation';
+import { defaultLocale } from './i18n/settings';
 
-export default function Page() {
-  return <LoginWrapper />
+export default function RootPage() {
+  redirect(`/${defaultLocale}`);
 } 

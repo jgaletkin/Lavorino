@@ -1,5 +1,11 @@
-import ProviderOnboardingServicesContent from './ProviderOnboardingServicesContent'
+import ProviderOnboardingServicesContent from '@/app/provider-onboarding/services/ProviderOnboardingServicesContent'
 
-export default function ProviderOnboardingServicesPage() {
+interface PageProps {
+  params: {
+    lang: string
+  }
+}
+
+export default function ProviderOnboardingServicesPage({ params }: PageProps) {
   return <ProviderOnboardingServicesContent />
 } 

@@ -1,17 +1,15 @@
-export const i18n = {
-  defaultLocale: 'en',
-  locales: ['en', 'it'],
-} as const
+export const defaultLocale = 'en';
+export const locales = ['en', 'it'] as const;
 
-export type Locale = (typeof i18n)['locales'][number]
+export type Locale = (typeof locales)[number];
 
-export function getOptions(lng = i18n.defaultLocale) {
+export function getOptions() {
   return {
-    supportedLngs: i18n.locales,
-    fallbackLng: i18n.defaultLocale,
-    lng,
+    supportedLngs: locales,
+    fallbackLng: defaultLocale,
+    lng: defaultLocale,
     fallbackNS: 'common',
     defaultNS: 'common',
-    ns: ['common', 'profile'],
-  }
+    ns: ['common', 'profile', 'login', 'provider-login', 'provider-dashboard', 'provider-profile', 'provider-history', 'provider-calendar', 'provider-onboarding'],
+  };
 } 
