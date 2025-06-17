@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useTranslation } from 'next-i18next'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 
@@ -9,18 +9,24 @@ export default function ProviderLoginContent() {
   const { t, i18n } = useTranslation(['login', 'common'])
   const router = useRouter()
   const searchParams = useSearchParams()
+  const pathname = usePathname()
   const [isBusinessLogin, setIsBusinessLogin] = useState(true) // Set to true by default for provider login
   const [showGDPRNotice, setShowGDPRNotice] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
   useEffect(() => {
+    // Get language from URL path
+    const lang = pathname?.split('/')[1]
+    if (lang && i18n.language !== lang) {
+      i18n.changeLanguage(lang)
+    }
     // Check if user has already consented
     const hasConsented = localStorage.getItem('gdpr-consent')
     if (!hasConsented) {
       setShowGDPRNotice(true)
     }
-  }, [])
+  }, [pathname, i18n])
 
   const handleGDPRConsent = () => {
     localStorage.setItem('gdpr-consent', 'true')
@@ -31,45 +37,19 @@ export default function ProviderLoginContent() {
     try {
       setIsLoading(true)
       setError('')
-
-      // For demo purposes, create mock provider data
-      const mockProviderData = {
-        businessDetails: {
-          businessName: 'Demo Business',
-          categories: ['Plumbing', 'Electrical'],
-          location: 'Milan, Italy',
-          contactInfo: {
-            email: `demo@${provider}.com`,
-            phone: '+39 123 456 7890'
-          }
-        },
-        ownerInfo: {
-          name: 'John Doe',
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           email: `demo@${provider}.com`,
-          phone: '+39 123 456 7890'
-        },
-        services: [
-          {
-            name: 'Basic Plumbing',
-            description: 'Standard plumbing services',
-            pricingModel: 'hourly',
-            price: 50,
-            availability: 'weekdays'
-          }
-        ]
-      }
-
-      // Store the mock data in localStorage
-      const existingProviders = localStorage.getItem('providers')
-      const providers = existingProviders ? JSON.parse(existingProviders) : []
-      providers.push(mockProviderData)
-      localStorage.setItem('providers', JSON.stringify(providers))
-
-      // Store current provider
-      localStorage.setItem('currentProvider', JSON.stringify(mockProviderData))
-
+          password: 'demo123',
+        }),
+      })
+      const data = await response.json()
+      if (!data.success) throw new Error(data.error || 'Login failed')
+      
       // Redirect to the original destination or providers page
-      const from = searchParams.get('from')
+      const from = searchParams?.get('from')
       router.push(from || '/provider-dashboard')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed')
