@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 
 export default function ProviderMenu() {
   const router = useRouter()
