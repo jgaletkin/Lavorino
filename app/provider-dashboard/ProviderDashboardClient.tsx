@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { useTranslation } from 'next-i18next'
-import LanguageSwitcher from '../components/LanguageSwitcher'
-import ProviderMenu from '../components/ProviderMenu'
-import { ResponsiveBar } from '@nivo/bar'
-import { ResponsiveLine } from '@nivo/line'
-import { ResponsivePie } from '@nivo/pie'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useTranslation } from 'next-i18next';
+import LanguageSwitcher from '../components/LanguageSwitcher';
+import ProviderMenu from '../components/ProviderMenu';
+// import { ResponsiveBar } from '@nivo/bar';
+// import { ResponsiveLine } from '@nivo/line';
+// import { ResponsivePie } from '@nivo/pie';
 
 // Mock data for impressions vs clicks
 const impressionsClicksData = [
@@ -18,7 +18,7 @@ const impressionsClicksData = [
   { date: 'Fri', impressions: 200, clicks: 85 },
   { date: 'Sat', impressions: 250, clicks: 100 },
   { date: 'Sun', impressions: 220, clicks: 90 }
-]
+];
 
 // Mock data for competitive performance
 const competitiveData = [
@@ -46,48 +46,48 @@ const competitiveData = [
       { x: 'Week 7', y: 80 }
     ]
   }
-]
+];
 
 // Mock data for service demand
 const serviceDemandData = [
-  { id: 'Plumbing', value: 35 },
-  { id: 'Electrical', value: 25 },
-  { id: 'Carpentry', value: 20 },
-  { id: 'Painting', value: 15 },
-  { id: 'Cleaning', value: 5 }
-]
+  { id: 'Plumbing', value: 35, label: 'Plumbing' },
+  { id: 'Electrical', value: 25, label: 'Electrical' },
+  { id: 'Carpentry', value: 20, label: 'Carpentry' },
+  { id: 'Painting', value: 15, label: 'Painting' },
+  { id: 'Cleaning', value: 5, label: 'Cleaning' }
+];
 
-export default function ProviderDashboardContent() {
-  const router = useRouter()
-  const { t } = useTranslation(['dashboard', 'common'])
-  const [timeScale, setTimeScale] = useState<'weeks' | 'months'>('weeks')
-  const [businessData, setBusinessData] = useState<any>(null)
+export default function ProviderDashboardClient() {
+  const router = useRouter();
+  const { t } = useTranslation(['dashboard', 'common']);
+  const [timeScale, setTimeScale] = useState<'weeks' | 'months'>('weeks');
+  const [businessData, setBusinessData] = useState<any>(null);
 
   useEffect(() => {
     const loadData = async () => {
       try {
         // Load business data from localStorage
-        const providers = localStorage.getItem('providers')
+        const providers = localStorage.getItem('providers');
         if (providers) {
-          const providersList = JSON.parse(providers)
+          const providersList = JSON.parse(providers);
           if (providersList.length > 0) {
-            setBusinessData(providersList[providersList.length - 1])
+            setBusinessData(providersList[providersList.length - 1]);
           } else {
             // If no providers found, redirect to login
-            router.push('/provider-login')
+            router.push('/provider-login');
           }
         } else {
           // If no providers data found, redirect to login
-          router.push('/provider-login')
+          router.push('/provider-login');
         }
       } catch (err) {
-        console.error('Error loading provider data:', err)
-        router.push('/provider-login')
+        console.error('Error loading provider data:', err);
+        router.push('/provider-login');
       }
-    }
+    };
 
-    loadData()
-  }, []) // Empty dependency array since router is stable
+    loadData();
+  }, []); // Empty dependency array since router is stable
 
   if (!businessData) {
     return (
@@ -98,7 +98,7 @@ export default function ProviderDashboardContent() {
           </h2>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -132,7 +132,7 @@ export default function ProviderDashboardContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 gap-8">
           {/* Impressions vs Clicks Chart */}
-          <div className="bg-white p-6 rounded-lg shadow">
+          {/* <div className="bg-white p-6 rounded-lg shadow">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Impressions vs Clicks</h2>
             <div className="h-80">
               <ResponsiveBar
@@ -181,10 +181,10 @@ export default function ProviderDashboardContent() {
                 ]}
               />
             </div>
-          </div>
+          </div> */}
 
           {/* Competitive Performance Chart */}
-          <div className="bg-white p-6 rounded-lg shadow">
+          {/* <div className="bg-white p-6 rounded-lg shadow">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold text-gray-900">Competitive Performance</h2>
               <div className="flex space-x-2">
@@ -263,10 +263,10 @@ export default function ProviderDashboardContent() {
                 ]}
               />
             </div>
-          </div>
+          </div> */}
 
           {/* Service Demand Chart */}
-          <div className="bg-white p-6 rounded-lg shadow">
+          {/* <div className="bg-white p-6 rounded-lg shadow">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Service Type Demand</h2>
             <div className="h-80">
               <ResponsivePie
@@ -304,9 +304,9 @@ export default function ProviderDashboardContent() {
                 ]}
               />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
-  )
+  );
 } 

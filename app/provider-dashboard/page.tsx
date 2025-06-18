@@ -1,5 +1,5 @@
-import ProviderDashboardContent from './ProviderDashboardContent'
+import ProviderDashboardClient from './ProviderDashboardClient'
 
 export default function ProviderDashboardPage() {
-  return <ProviderDashboardContent />
+  return <ProviderDashboardClient />
 } 

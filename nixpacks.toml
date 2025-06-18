@@ -7,15 +7,13 @@ providers = ["nodejs_20", "npm-10_x"]
 
 [phases.install]
 cmds = [
-  "cd /app",
   "npm ci"
 ]
 
 [phases.build]
 cmds = [
-  "cd /app", 
   "npm run build"
 ]
 
 [start]
-cmd = "cd /app && npm start"
+cmd = "npm start"
