@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 import { Provider } from '@/lib/types'
 import { mockProviders } from '@/lib/mockData'
 import ProviderList from '@/components/ProviderList'

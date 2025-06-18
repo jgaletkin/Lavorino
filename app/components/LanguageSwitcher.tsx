@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 import { GlobeAltIcon } from '@heroicons/react/24/outline'
 
 export default function LanguageSwitcher() {
