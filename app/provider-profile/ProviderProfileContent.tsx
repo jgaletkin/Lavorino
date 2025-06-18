@@ -2,11 +2,18 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useClientTranslation } from '../i18n/client'
+import { Locale } from '../i18n/settings'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import ProviderMenu from '../components/ProviderMenu'
 
-export default function ProviderProfileContent() {
+interface ProviderProfileContentProps {
+  locale: Locale;
+}
+
+export default function ProviderProfileContent({ locale }: ProviderProfileContentProps) {
   const router = useRouter()
+  const { t } = useClientTranslation(locale, ['profile', 'common'])
   const [businessData, setBusinessData] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
   const [editingSection, setEditingSection] = useState<string | null>(null)
@@ -111,10 +118,10 @@ export default function ProviderProfileContent() {
               </span>
             </button>
             <div className="flex justify-between items-center">
-              <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
+              <h1 className="text-3xl font-bold text-gray-900">{t('profile:title')}</h1>
               <div className="flex items-center space-x-4">
-                <LanguageSwitcher />
-                <ProviderMenu />
+                <LanguageSwitcher locale={locale} />
+                <ProviderMenu locale={locale} />
               </div>
             </div>
           </div>

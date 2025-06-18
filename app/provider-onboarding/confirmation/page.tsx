@@ -1,5 +1,12 @@
-import ProviderOnboardingConfirmationContent from '@/app/provider-onboarding/confirmation/ProviderOnboardingConfirmationContent'
+import ProviderOnboardingConfirmationContent from './ProviderOnboardingConfirmationContent'
+import { Locale } from '../../i18n/settings'
 
-export default function ProviderOnboardingConfirmationPage() {
-  return <ProviderOnboardingConfirmationContent />
+interface PageProps {
+  params: {
+    locale: Locale;
+  };
+}
+
+export default function ProviderOnboardingConfirmationPage({ params: { locale } }: PageProps) {
+  return <ProviderOnboardingConfirmationContent locale={locale} />
 } 

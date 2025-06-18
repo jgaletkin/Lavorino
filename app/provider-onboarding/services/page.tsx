@@ -1,11 +1,12 @@
-import ProviderOnboardingServicesContent from '@/app/provider-onboarding/services/ProviderOnboardingServicesContent'
+import ProviderOnboardingServicesContent from './ProviderOnboardingServicesContent'
+import { Locale } from '../../i18n/settings'
 
 interface PageProps {
   params: {
-    lang: string
-  }
+    locale: Locale;
+  };
 }
 
-export default function ProviderOnboardingServicesPage({ params }: PageProps) {
-  return <ProviderOnboardingServicesContent />
+export default function ProviderOnboardingServicesPage({ params: { locale } }: PageProps) {
+  return <ProviderOnboardingServicesContent locale={locale} />
 } 

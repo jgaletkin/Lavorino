@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useClientTranslation } from '../../i18n/client'
+import { Locale } from '../../i18n/settings'
 import LanguageSwitcher from '../../../components/LanguageSwitcher'
 
 interface BusinessDetails {
@@ -57,8 +59,13 @@ interface OnboardingData {
   }
 }
 
-export default function ProviderOnboardingConfirmationContent() {
+interface ProviderOnboardingConfirmationContentProps {
+  locale: Locale
+}
+
+export default function ProviderOnboardingConfirmationContent({ locale }: ProviderOnboardingConfirmationContentProps) {
   const router = useRouter()
+  const { t } = useClientTranslation(locale, ['onboarding', 'common'])
   const [onboardingData, setOnboardingData] = useState<OnboardingData | null>(null)
   const [isInfoConfirmed, setIsInfoConfirmed] = useState(false)
   const [isTermsAccepted, setIsTermsAccepted] = useState(false)
@@ -143,10 +150,10 @@ export default function ProviderOnboardingConfirmationContent() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-3xl">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          Confirm Your Information
+          {t('onboarding.confirmation.title')}
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Please review your information before submitting
+          {t('onboarding.confirmation.description')}
         </p>
       </div>
 
@@ -269,7 +276,7 @@ export default function ProviderOnboardingConfirmationContent() {
                 </div>
                 <div className="ml-3 text-sm">
                   <span className="text-gray-700">
-                    I confirm that all the information provided above is correct and accurate.
+                    {t('onboarding.confirmation.info_confirmation')}
                   </span>
                 </div>
               </label>
@@ -285,14 +292,7 @@ export default function ProviderOnboardingConfirmationContent() {
                 </div>
                 <div className="ml-3 text-sm">
                   <span className="text-gray-700">
-                    I agree to the{' '}
-                    <a href="#" className="text-emerald-600 hover:text-emerald-500">
-                      Terms and Conditions
-                    </a>
-                    {' '}and{' '}
-                    <a href="#" className="text-emerald-600 hover:text-emerald-500">
-                      Privacy Policy
-                    </a>
+                    {t('onboarding.confirmation.terms_acceptance')}
                   </span>
                 </div>
               </label>

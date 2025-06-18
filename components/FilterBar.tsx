@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { StarIcon } from '@heroicons/react/20/solid'
 
@@ -38,6 +39,7 @@ const availableSpecialties = [
 ]
 
 export default function FilterBar({ onFilterChange }: FilterBarProps) {
+  const { t } = useTranslation('providers')
   const [filters, setFilters] = useState<ProviderFilters>({
     search: '',
     rating: null,
@@ -62,7 +64,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
         <input
           type="text"
           className="block w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-          placeholder="Search"
+          placeholder={t('providers:filters.searchPlaceholder')}
           value={filters.search}
           onChange={(e) => handleFilterChange('search', e.target.value)}
         />
@@ -73,7 +75,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
         {/* Rating Filter */}
         <div className="flex items-center space-x-2">
           <label className="text-sm font-medium text-gray-700">
-            Rating:
+            {t('providers:filters.rating')}:
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
@@ -83,17 +85,17 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
               handleFilterChange('rating', value)
             }}
           >
-            <option value="">Any</option>
-            <option value="4">4+ Stars</option>
-            <option value="3">3+ Stars</option>
-            <option value="2">2+ Stars</option>
+            <option value="">{t('providers:filters.any')}</option>
+            <option value="4">4+ {t('providers:filters.stars')}</option>
+            <option value="3">3+ {t('providers:filters.stars')}</option>
+            <option value="2">2+ {t('providers:filters.stars')}</option>
           </select>
         </div>
 
         {/* Price Range Filter */}
         <div className="flex items-center space-x-2">
           <label className="text-sm font-medium text-gray-700">
-            Price:
+            {t('providers:filters.price')}:
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
@@ -108,7 +110,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
               handleFilterChange('priceRange', [min, max])
             }}
           >
-            <option value="">Any</option>
+            <option value="">{t('providers:filters.any')}</option>
             <option value="0-50">€0 - €50</option>
             <option value="50-100">€50 - €100</option>
             <option value="100-200">€100 - €200</option>
@@ -119,7 +121,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
         {/* Distance Filter */}
         <div className="flex items-center space-x-2">
           <label className="text-sm font-medium text-gray-700">
-            Distance:
+            {t('providers:filters.distance')}:
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
@@ -129,28 +131,28 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
               handleFilterChange('distance', value)
             }}
           >
-            <option value="">Any</option>
-            <option value="5">Within 5km</option>
-            <option value="10">Within 10km</option>
-            <option value="20">Within 20km</option>
-            <option value="50">Within 50km</option>
+            <option value="">{t('providers:filters.any')}</option>
+            <option value="5">{t('providers:filters.distanceOptions.within5km')}</option>
+            <option value="10">{t('providers:filters.distanceOptions.within10km')}</option>
+            <option value="20">{t('providers:filters.distanceOptions.within20km')}</option>
+            <option value="50">{t('providers:filters.distanceOptions.within50km')}</option>
           </select>
         </div>
 
         {/* Specialty Filter */}
         <div className="flex items-center space-x-2">
           <label className="text-sm font-medium text-gray-700">
-            Specialty:
+            {t('providers:filters.specialty')}:
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
             value={filters.specialty || ''}
             onChange={(e) => handleFilterChange('specialty', e.target.value || null)}
           >
-            <option value="">Any</option>
+            <option value="">{t('providers:filters.any')}</option>
             {availableSpecialties.map((specialty) => (
               <option key={specialty} value={specialty}>
-                {specialty}
+                {t(`providers:filters.specialties.${specialty}`)}
               </option>
             ))}
           </select>

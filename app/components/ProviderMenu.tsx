@@ -2,9 +2,16 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useClientTranslation } from '../i18n/client'
+import { Locale } from '../i18n/settings'
 
-export default function ProviderMenu() {
+interface ProviderMenuProps {
+  locale: Locale
+}
+
+export default function ProviderMenu({ locale }: ProviderMenuProps) {
   const router = useRouter()
+  const { t } = useClientTranslation(locale, ['common'])
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 

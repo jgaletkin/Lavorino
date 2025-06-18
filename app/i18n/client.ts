@@ -1,28 +1,33 @@
 'use client';
 
-import i18next from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import { createInstance } from 'i18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
-import { getOptions } from './settings';
+import { initReactI18next } from 'react-i18next/initReactI18next';
+import { getOptions, Locale } from './settings';
+import { useTranslation as useTranslationOriginal } from 'react-i18next';
 
-// Initialize i18next only on the client side
-if (typeof window !== 'undefined') {
-  i18next
-    .use(initReactI18next)
-    .use(
-      resourcesToBackend(
-        (language: string, namespace: string) =>
-          import(`../../public/locales/${language}/${namespace}.json`)
-      )
-    )
-    .init({
-      ...getOptions(),
-      lng: 'en', // Set English as default
-      fallbackLng: 'en',
-      detection: {
-        order: ['localStorage', 'navigator'],
-      },
-    });
-}
+// Create a singleton instance for client-side
+let i18nInstance: any = null;
 
-export default i18next; 
+const initI18next = async (lng: Locale, ns: string) => {
+  if (!i18nInstance) {
+    i18nInstance = createInstance();
+    await i18nInstance
+      .use(initReactI18next)
+      .use(resourcesToBackend((language: string, namespace: string) => 
+        import(`./locales/${language}/${namespace}.json`)))
+      .init(getOptions(lng, ns));
+  }
+  return i18nInstance;
+};
+
+// This is a client-side hook that should only be used in client components
+export function useClientTranslation(lng: Locale, ns: string | string[] = 'common') {
+  const namespaces = Array.isArray(ns) ? ns : [ns];
+  const { t, i18n } = useTranslationOriginal(namespaces, {
+    lng,
+    useSuspense: false,
+  });
+
+  return { t, i18n };
+} 

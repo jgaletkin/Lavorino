@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+import { useClientTranslation } from '../i18n/client';
+import { Locale } from '../i18n/settings';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import ProviderMenu from '../components/ProviderMenu';
 // import { ResponsiveBar } from '@nivo/bar';
@@ -57,9 +58,13 @@ const serviceDemandData = [
   { id: 'Cleaning', value: 5, label: 'Cleaning' }
 ];
 
-export default function ProviderDashboardClient() {
+interface ProviderDashboardClientProps {
+  locale: Locale;
+}
+
+export default function ProviderDashboardClient({ locale }: ProviderDashboardClientProps) {
   const router = useRouter();
-  const { t } = useTranslation(['dashboard', 'common']);
+  const { t } = useClientTranslation(locale, ['dashboard', 'common']);
   const [timeScale, setTimeScale] = useState<'weeks' | 'months'>('weeks');
   const [businessData, setBusinessData] = useState<any>(null);
 
@@ -120,8 +125,8 @@ export default function ProviderDashboardClient() {
                 {businessData?.businessDetails?.businessName || 'Business'} Dashboard
               </h1>
               <div className="flex items-center space-x-4">
-                <LanguageSwitcher />
-                <ProviderMenu />
+                <LanguageSwitcher locale={locale} />
+                <ProviderMenu locale={locale} />
               </div>
             </div>
           </div>

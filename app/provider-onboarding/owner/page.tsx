@@ -1,5 +1,12 @@
 import ProviderOnboardingOwnerContent from './ProviderOnboardingOwnerContent'
+import { Locale } from '../../i18n/settings'
 
-export default function ProviderOnboardingOwnerPage() {
-  return <ProviderOnboardingOwnerContent />
+interface PageProps {
+  params: {
+    locale: Locale;
+  };
+}
+
+export default function ProviderOnboardingOwnerPage({ params: { locale } }: PageProps) {
+  return <ProviderOnboardingOwnerContent locale={locale} />
 } 

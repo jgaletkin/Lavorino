@@ -1,17 +1,15 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
+import { useClientTranslation } from '../i18n/client'
+import { Locale } from '../i18n/settings'
 import LanguageSwitcher from './LanguageSwitcher'
-import { useTranslation } from 'react-i18next'
 
-export default function TopNav() {
-  const pathname = usePathname()
+interface TopNavProps {
+  locale: Locale
+}
 
-  // Don't show the nav on the login page
-  if (pathname === '/') {
-    return null
-  }
+export default function TopNav({ locale }: TopNavProps) {
+  const { t } = useClientTranslation(locale, 'common')
 
   return (
     <nav className="bg-white shadow">
@@ -19,13 +17,11 @@ export default function TopNav() {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
-                Lavorino
-              </Link>
+              {t('nav.logo')}
             </div>
           </div>
           <div className="flex items-center">
-            <LanguageSwitcher />
+            <LanguageSwitcher locale={locale} />
           </div>
         </div>
       </div>

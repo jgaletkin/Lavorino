@@ -17,7 +17,7 @@ export default function LanguageSwitcher() {
       className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
     >
       <GlobeAltIcon className="h-5 w-5" />
-      {i18n.language === 'en' ? 'Italiano' : 'English'}
+      {i18n.language.toUpperCase()}
     </button>
   )
 } 

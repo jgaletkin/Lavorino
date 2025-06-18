@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
+import { useClientTranslation } from '../../i18n/client'
+import { Locale } from '../../i18n/settings'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 const BUSINESS_CATEGORIES = [
@@ -119,9 +120,13 @@ const DAYS_OF_WEEK = [
   'Sunday'
 ]
 
-export default function ProviderOnboardingServicesContent() {
+interface ProviderOnboardingServicesContentProps {
+  locale: Locale;
+}
+
+export default function ProviderOnboardingServicesContent({ locale }: ProviderOnboardingServicesContentProps) {
   const router = useRouter()
-  const { t } = useTranslation(['onboarding', 'common'])
+  const { t } = useClientTranslation(locale, ['onboarding', 'common'])
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [selectedServices, setSelectedServices] = useState<Record<string, {
     description: string
@@ -310,10 +315,10 @@ export default function ProviderOnboardingServicesContent() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-3xl">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          Services
+          {t('onboarding.services.title')}
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          What services do you offer?
+          {t('onboarding.services.description')}
         </p>
       </div>
 
@@ -323,7 +328,7 @@ export default function ProviderOnboardingServicesContent() {
             {/* Business Categories */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-4">
-                Select Your Business Categories *
+                {t('onboarding.services.categories.label')} *
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {BUSINESS_CATEGORIES.map((category) => (
@@ -372,7 +377,7 @@ export default function ProviderOnboardingServicesContent() {
                       className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
                     />
                     <span className="ml-2 text-sm font-medium text-gray-700">
-                      Use the same working hours for all services
+                      {t('onboarding.services.uniformHours.label')}
                     </span>
                   </label>
                 </div>
@@ -380,7 +385,7 @@ export default function ProviderOnboardingServicesContent() {
                 {uniformHours && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Working Hours
+                      {t('onboarding.services.uniformHours.workingHours')}
                     </label>
                     <div className="space-y-2">
                       {DAYS_OF_WEEK.map(day => (
@@ -402,7 +407,7 @@ export default function ProviderOnboardingServicesContent() {
                                 onChange={(e) => handleUniformAvailabilityChange(day, 'start', e.target.value)}
                                 className="rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"
                               />
-                              <span className="text-gray-500">to</span>
+                              <span className="text-gray-500">{t('onboarding.services.uniformHours.to')}</span>
                               <input
                                 type="time"
                                 value={uniformAvailability[day].end}
@@ -427,25 +432,25 @@ export default function ProviderOnboardingServicesContent() {
                 {/* Description */}
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700">
-                    Description
+                    {t('onboarding.services.description.label')}
                   </label>
                   <textarea
                     value={service.description}
                     onChange={(e) => handleServiceChange(serviceId, 'description', e.target.value)}
                     rows={3}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"
-                    placeholder="Describe your service..."
+                    placeholder={t('onboarding.services.description.placeholder')}
                   />
                 </div>
 
                 {/* Pricing */}
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Pricing
+                    {t('onboarding.services.pricing.label')}
                   </label>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-sm text-gray-600">Model</label>
+                      <label className="block text-sm text-gray-600">{t('onboarding.services.pricing.model')}</label>
                       <select
                         value={service.pricingModel}
                         onChange={(e) => handleServiceChange(serviceId, 'pricingModel', e.target.value)}
@@ -457,23 +462,23 @@ export default function ProviderOnboardingServicesContent() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm text-gray-600">Min Price</label>
+                      <label className="block text-sm text-gray-600">{t('onboarding.services.pricing.minPrice')}</label>
                       <input
                         type="number"
                         value={service.priceRange.min}
                         onChange={(e) => handlePriceChange(serviceId, 'min', e.target.value)}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"
-                        placeholder="Min"
+                        placeholder={t('onboarding.services.pricing.minPlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm text-gray-600">Max Price</label>
+                      <label className="block text-sm text-gray-600">{t('onboarding.services.pricing.maxPrice')}</label>
                       <input
                         type="number"
                         value={service.priceRange.max}
                         onChange={(e) => handlePriceChange(serviceId, 'max', e.target.value)}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"
-                        placeholder="Max"
+                        placeholder={t('onboarding.services.pricing.maxPlaceholder')}
                       />
                     </div>
                   </div>
@@ -483,7 +488,7 @@ export default function ProviderOnboardingServicesContent() {
                 {!uniformHours && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Availability
+                      {t('onboarding.services.availability.label')}
                     </label>
                     <div className="space-y-2">
                       {DAYS_OF_WEEK.map(day => (
@@ -505,7 +510,7 @@ export default function ProviderOnboardingServicesContent() {
                                 onChange={(e) => handleAvailabilityChange(serviceId, day, 'start', e.target.value)}
                                 className="rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"
                               />
-                              <span className="text-gray-500">to</span>
+                              <span className="text-gray-500">{t('onboarding.services.availability.to')}</span>
                               <input
                                 type="time"
                                 value={service.availability[day].end}
@@ -527,7 +532,7 @@ export default function ProviderOnboardingServicesContent() {
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
               >
-                Continue to Confirmation
+                {t('onboarding.services.submit')}
               </button>
             </div>
           </form>
