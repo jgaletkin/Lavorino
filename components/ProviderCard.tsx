@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Provider } from '@/lib/types'
 import { StarIcon } from '@heroicons/react/20/solid'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 
 interface ProviderCardProps {
   provider: Provider

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface FilterBarProps {
   onFilterChange: (filters: ProviderFilters) => void
