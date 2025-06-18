@@ -1,10 +1,3 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { useTranslation } from 'next-i18next'
-import LanguageSwitcher from '../components/LanguageSwitcher'
-import ProviderMenu from '../components/ProviderMenu'
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
 import { format, parse, startOfWeek, getDay } from 'date-fns'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
@@ -53,76 +46,39 @@ const mockAppointments = [
   },
 ]
 
+function eventStyleGetter(event: any) {
+  let backgroundColor = '#10B981' // emerald-500 for confirmed appointments
+  if (event.type === 'suggested') {
+    backgroundColor = '#F59E0B' // amber-500 for suggested appointments
+  }
+  return {
+    style: {
+      backgroundColor,
+      borderRadius: '4px',
+      opacity: 0.8,
+      color: 'white',
+      border: '0px',
+      display: 'block',
+    },
+  }
+}
+
 export default function ProviderCalendar() {
-  const router = useRouter()
-  const { t } = useTranslation(['calendar', 'common'])
-  const [businessData, setBusinessData] = useState<any>(null)
-
-  useEffect(() => {
-    try {
-      // Load business data from localStorage
-      const providers = localStorage.getItem('providers')
-      if (providers) {
-        const providersList = JSON.parse(providers)
-        if (providersList.length > 0) {
-          setBusinessData(providersList[providersList.length - 1])
-        }
-      }
-    } catch (err) {
-      console.error('Error loading provider data:', err)
-    }
-  }, [])
-
-  const eventStyleGetter = (event: any) => {
-    let backgroundColor = '#10B981' // emerald-500 for confirmed appointments
-    if (event.type === 'suggested') {
-      backgroundColor = '#F59E0B' // amber-500 for suggested appointments
-    }
-
-    return {
-      style: {
-        backgroundColor,
-        borderRadius: '4px',
-        opacity: 0.8,
-        color: 'white',
-        border: '0px',
-        display: 'block',
-      },
-    }
-  }
-
-  if (!businessData) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-            Loading...
-          </h2>
-        </div>
-      </div>
-    )
-  }
-
+  // No hooks, no localStorage, no router
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col space-y-2">
-            <button
-              onClick={() => router.push('/provider-dashboard')}
-              className="focus:outline-none self-start"
-            >
+            <a href="/provider-dashboard" className="focus:outline-none self-start">
               <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
                 Lavorino
               </span>
-            </button>
+            </a>
             <div className="flex justify-between items-center">
-              <h1 className="text-3xl font-bold text-gray-900">{t('calendar:title')}</h1>
-              <div className="flex items-center space-x-4">
-                <LanguageSwitcher />
-                <ProviderMenu />
-              </div>
+              <h1 className="text-3xl font-bold text-gray-900">Provider Calendar</h1>
+              {/* LanguageSwitcher and ProviderMenu removed for server component */}
             </div>
           </div>
         </div>
@@ -134,11 +90,11 @@ export default function ProviderCalendar() {
           <div className="mb-4 flex items-center space-x-4">
             <div className="flex items-center">
               <div className="w-4 h-4 bg-emerald-500 rounded-full mr-2"></div>
-              <span className="text-sm text-gray-600">{t('calendar:legend.confirmed')}</span>
+              <span className="text-sm text-gray-600">Confirmed</span>
             </div>
             <div className="flex items-center">
               <div className="w-4 h-4 bg-amber-500 rounded-full mr-2"></div>
-              <span className="text-sm text-gray-600">{t('calendar:legend.suggested')}</span>
+              <span className="text-sm text-gray-600">Suggested</span>
             </div>
           </div>
           <div className="h-[600px]">
