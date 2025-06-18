@@ -1,20 +1,7 @@
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
-import { format, parse, startOfWeek, getDay } from 'date-fns'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
+import dynamic from 'next/dynamic';
 
-const locales = {
-  'en-US': require('date-fns/locale/en-US'),
-}
+const ProviderCalendarClient = dynamic(() => import('./ProviderCalendarClient'), { ssr: false });
 
-const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
-})
-
-// Mock appointments data
 const mockAppointments = [
   {
     id: 1,
@@ -44,30 +31,11 @@ const mockAppointments = [
     end: new Date(2024, 2, 18, 15, 0),
     type: 'suggested',
   },
-]
-
-function eventStyleGetter(event: any) {
-  let backgroundColor = '#10B981' // emerald-500 for confirmed appointments
-  if (event.type === 'suggested') {
-    backgroundColor = '#F59E0B' // amber-500 for suggested appointments
-  }
-  return {
-    style: {
-      backgroundColor,
-      borderRadius: '4px',
-      opacity: 0.8,
-      color: 'white',
-      border: '0px',
-      display: 'block',
-    },
-  }
-}
+];
 
 export default function ProviderCalendar() {
-  // No hooks, no localStorage, no router
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col space-y-2">
@@ -78,13 +46,10 @@ export default function ProviderCalendar() {
             </a>
             <div className="flex justify-between items-center">
               <h1 className="text-3xl font-bold text-gray-900">Provider Calendar</h1>
-              {/* LanguageSwitcher and ProviderMenu removed for server component */}
             </div>
           </div>
         </div>
       </div>
-
-      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white p-6 rounded-lg shadow">
           <div className="mb-4 flex items-center space-x-4">
@@ -97,21 +62,9 @@ export default function ProviderCalendar() {
               <span className="text-sm text-gray-600">Suggested</span>
             </div>
           </div>
-          <div className="h-[600px]">
-            <Calendar
-              localizer={localizer}
-              events={mockAppointments}
-              startAccessor="start"
-              endAccessor="end"
-              eventPropGetter={eventStyleGetter}
-              views={['month', 'week', 'day']}
-              defaultView="week"
-              popup
-              selectable
-            />
-          </div>
+          <ProviderCalendarClient events={mockAppointments} />
         </div>
       </div>
     </div>
-  )
+  );
 } 
