@@ -2,12 +2,10 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export default function ProviderOnboardingOwnerContent() {
   const router = useRouter()
-  const { t } = useTranslation(['onboarding', 'common'])
   const [formData, setFormData] = useState({
     ownerName: '',
     registrationNumber: ''

@@ -2,11 +2,9 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
 
 export default function ProviderMenu() {
   const router = useRouter()
-  const { t } = useTranslation(['common'])
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 

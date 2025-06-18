@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 const BUSINESS_CATEGORIES = [
@@ -20,7 +19,6 @@ const BUSINESS_CATEGORIES = [
 
 export default function ProviderOnboardingDetailsContent() {
   const router = useRouter()
-  const { t } = useTranslation(['onboarding', 'common'])
   const [formData, setFormData] = useState({
     businessName: '',
     categories: [] as string[],

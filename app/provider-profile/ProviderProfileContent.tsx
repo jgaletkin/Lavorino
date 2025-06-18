@@ -2,13 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import ProviderMenu from '../components/ProviderMenu'
 
 export default function ProviderProfileContent() {
   const router = useRouter()
-  const { t } = useTranslation(['profile', 'common'])
   const [businessData, setBusinessData] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
   const [editingSection, setEditingSection] = useState<string | null>(null)
@@ -113,7 +111,7 @@ export default function ProviderProfileContent() {
               </span>
             </button>
             <div className="flex justify-between items-center">
-              <h1 className="text-3xl font-bold text-gray-900">{t('profile:title')}</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
               <div className="flex items-center space-x-4">
                 <LanguageSwitcher />
                 <ProviderMenu />

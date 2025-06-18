@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../../../components/LanguageSwitcher'
 
 interface BusinessDetails {
@@ -60,7 +59,6 @@ interface OnboardingData {
 
 export default function ProviderOnboardingConfirmationContent() {
   const router = useRouter()
-  const { t } = useTranslation(['onboarding', 'common'])
   const [onboardingData, setOnboardingData] = useState<OnboardingData | null>(null)
   const [isInfoConfirmed, setIsInfoConfirmed] = useState(false)
   const [isTermsAccepted, setIsTermsAccepted] = useState(false)

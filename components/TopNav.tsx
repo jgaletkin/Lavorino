@@ -2,13 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from './LanguageSwitcher'
 
 export default function TopNav() {
   const pathname = usePathname()
   const router = useRouter()
-  const { t } = useTranslation('common')
 
   // Don't show TopNav on the login page
   if (pathname === '/') {
@@ -43,13 +41,13 @@ export default function TopNav() {
                   : 'text-gray-900 hover:bg-gray-100'
               }`}
             >
-              {t('nav.providers')}
+              Providers
             </Link>
             <button
               onClick={handleLogout}
               className="px-3 py-2 rounded-md text-sm font-medium text-gray-900 hover:bg-gray-100"
             >
-              {t('nav.logout')}
+              Logout
             </button>
             <LanguageSwitcher />
           </div>
