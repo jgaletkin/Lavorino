@@ -1,7 +1,3 @@
-'use client'
-
-import { useEffect } from 'react'
-
 export default function Error({
   error,
   reset,
@@ -9,10 +5,8 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error)
-  }, [error])
+  // Log the error directly (server component)
+  console.error(error)
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
