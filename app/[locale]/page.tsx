@@ -1,11 +1,13 @@
 import { getServerTranslations } from '../i18n/server'
 import { Locale } from '../i18n/settings'
 
-export default async function Home({
-  params: { locale }
-}: {
-  params: { locale: Locale }
-}) {
+interface PageProps {
+  params: {
+    locale: Locale;
+  };
+}
+
+export default async function Home({ params: { locale } }: PageProps) {
   const { t } = await getServerTranslations(locale)
 
   return (
