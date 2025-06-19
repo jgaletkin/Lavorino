@@ -40,13 +40,8 @@ const resources: TranslationResources = {
   }
 }
 
-export function getTranslations(locale: Locale, namespace: string) {
+function getTranslationValue(locale: Locale, namespace: string, key: string): string {
   const translations = resources[locale]?.[namespace] || resources.en[namespace] || {}
-  return translations
-}
-
-export function t(locale: Locale, namespace: string, key: string): string {
-  const translations = getTranslations(locale, namespace)
   const keys = key.split('.')
   let value: unknown = translations
   
@@ -58,7 +53,7 @@ export function t(locale: Locale, namespace: string, key: string): string {
     }
     if (value === undefined) {
       // Fallback to English
-      const enTranslations = getTranslations('en', namespace)
+      const enTranslations = resources.en[namespace] || {}
       let enValue: unknown = enTranslations
       for (const enK of keys) {
         if (typeof enValue === 'object' && enValue !== null && enK in enValue) {
@@ -73,4 +68,14 @@ export function t(locale: Locale, namespace: string, key: string): string {
   }
   
   return String(value || key)
+}
+
+export function getTranslations(locale: Locale, namespace: string) {
+  return {
+    t: (key: string): string => getTranslationValue(locale, namespace, key)
+  }
+}
+
+export function t(locale: Locale, namespace: string, key: string): string {
+  return getTranslationValue(locale, namespace, key)
 } 

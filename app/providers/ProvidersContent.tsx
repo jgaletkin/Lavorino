@@ -78,6 +78,7 @@ export default function ProvidersContent({ locale: _ }: ProvidersContentProps) {
         <div className="mt-8">
           <ProviderList
             providers={filteredProviders}
+            isLoading={false}
             isGridView={isGridView}
             onProviderSelect={setSelectedProvider}
           />

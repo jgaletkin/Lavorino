@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Locale } from '../../i18n/settings'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
+import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 const BUSINESS_CATEGORIES = [
   'Construction',
@@ -22,7 +22,7 @@ interface ProviderOnboardingDetailsContentProps {
   locale: Locale;
 }
 
-export default function ProviderOnboardingDetailsContent({ locale: _ }: ProviderOnboardingDetailsContentProps) {
+export default function ProviderOnboardingDetailsContent({ locale }: ProviderOnboardingDetailsContentProps) {
   const router = useRouter()
   const [formData, setFormData] = useState({
     businessName: '',
@@ -102,7 +102,7 @@ export default function ProviderOnboardingDetailsContent({ locale: _ }: Provider
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
       {/* Language Switch Button */}
       <div className="absolute top-6 right-6">
-        <LanguageSwitcher />
+        <LanguageSwitcher locale={locale} />
       </div>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md">

@@ -9,12 +9,14 @@ interface ProviderListProps {
   providers: Provider[]
   isLoading: boolean
   onProviderSelect: (provider: Provider) => void
+  isGridView?: boolean
 }
 
 export default function ProviderList({ 
   providers, 
   isLoading, 
-  onProviderSelect 
+  onProviderSelect, 
+  isGridView 
 }: ProviderListProps) {
   if (isLoading) {
     return (

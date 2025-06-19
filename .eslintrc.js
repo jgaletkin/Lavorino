@@ -1,9 +1,47 @@
 module.exports = {
-  extends: ['next'],
+  extends: [
+    'next/core-web-vitals',
+  ],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
   rules: {
-    'no-unused-vars': 'off',
+    // TypeScript specific rules
     '@typescript-eslint/no-unused-vars': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@next/next/no-img-element': 'off',
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'warn',
+    '@typescript-eslint/no-non-null-assertion': 'warn',
+    
+    // React specific rules
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    'react/prop-types': 'off', // We're using TypeScript
+    'react/react-in-jsx-scope': 'off', // Not needed in Next.js
+    
+    // General rules
+    'no-console': 'warn',
+    'no-debugger': 'error',
+    'prefer-const': 'error',
+    'no-var': 'error',
+    
+    // Next.js specific rules
+    '@next/next/no-img-element': 'warn',
+    '@next/next/no-html-link-for-pages': 'error',
+  },
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+  },
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 }; 

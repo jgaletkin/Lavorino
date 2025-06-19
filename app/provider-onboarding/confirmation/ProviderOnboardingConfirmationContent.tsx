@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Locale } from '../../i18n/settings'
-import LanguageSwitcher from '../../../components/LanguageSwitcher'
+import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 interface BusinessDetails {
   businessName: string

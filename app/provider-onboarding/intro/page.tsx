@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Locale } from '../../i18n/settings'
-import LanguageSwitcher from '../../../components/LanguageSwitcher'
+import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 interface PageProps {
   params: { locale: Locale }

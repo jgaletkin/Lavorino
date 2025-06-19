@@ -1,7 +1,7 @@
-// import { redirect } from 'next/navigation';
-// import { defaultLocale } from './i18n/settings';
+export const dynamic = 'force-dynamic'
 
-export default function RootPage() {
-  // redirect(`/${defaultLocale}`);
-  return null;
+import { redirect } from 'next/navigation'
+
+export default function Home() {
+  redirect('/en')
 } 

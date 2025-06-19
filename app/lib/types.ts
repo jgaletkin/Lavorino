@@ -10,8 +10,12 @@ export interface Transaction {
 export interface Provider {
   id: string
   name: string
+  description: string
+  image: string
   rating: number
+  reviewCount: number
   priceRange: [number, number]
   distance: number
   tags: string[]
+  services: import('../../lib/types').Service[]
 } 
