@@ -17,7 +17,7 @@ import itProviderOnboarding from './locales/it/provider-onboarding.json'
 
 type TranslationResources = {
   [locale: string]: {
-    [namespace: string]: any
+    [namespace: string]: Record<string, unknown>
   }
 }
 
@@ -48,21 +48,29 @@ export function getTranslations(locale: Locale, namespace: string) {
 export function t(locale: Locale, namespace: string, key: string): string {
   const translations = getTranslations(locale, namespace)
   const keys = key.split('.')
-  let value: any = translations
+  let value: unknown = translations
   
   for (const k of keys) {
-    value = value?.[k]
+    if (typeof value === 'object' && value !== null && k in value) {
+      value = (value as Record<string, unknown>)[k]
+    } else {
+      value = undefined
+    }
     if (value === undefined) {
       // Fallback to English
       const enTranslations = getTranslations('en', namespace)
-      let enValue: any = enTranslations
+      let enValue: unknown = enTranslations
       for (const enK of keys) {
-        enValue = enValue?.[enK]
+        if (typeof enValue === 'object' && enValue !== null && enK in enValue) {
+          enValue = (enValue as Record<string, unknown>)[enK]
+        } else {
+          enValue = undefined
+        }
         if (enValue === undefined) return key
       }
-      return enValue
+      return String(enValue)
     }
   }
   
-  return value || key
+  return String(value || key)
 } 

@@ -9,7 +9,7 @@ interface ProviderOnboardingOwnerContentProps {
   locale: Locale
 }
 
-export default function ProviderOnboardingOwnerContent({ locale }: ProviderOnboardingOwnerContentProps) {
+export default function ProviderOnboardingOwnerContent({ locale: _ }: ProviderOnboardingOwnerContentProps) {
   const router = useRouter()
   const [formData, setFormData] = useState({
     ownerName: '',

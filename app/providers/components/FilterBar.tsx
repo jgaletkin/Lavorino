@@ -1,10 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 interface FilterBarProps {
-  onFilterChange: (filters: ProviderFilters) => void
+  onFilterChange: (filters: FilterOptions) => void
+}
+
+interface FilterOptions {
+  search: string
+  category?: string
+  priceRange: [number, number] | null
+  rating: number | null
+  distance: number | null
 }
 
 export interface ProviderFilters {

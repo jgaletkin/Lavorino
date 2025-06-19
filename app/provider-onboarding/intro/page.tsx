@@ -1,37 +1,70 @@
-export default function ProviderOnboardingIntro() {
+import Link from 'next/link'
+import { Locale } from '../../i18n/settings'
+import LanguageSwitcher from '../../../components/LanguageSwitcher'
+
+interface PageProps {
+  params: { locale: Locale }
+}
+
+export default function ProviderOnboardingIntro({ params: { locale } }: PageProps) {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      {/* Language Switch Button */}
+      <div className="absolute top-6 right-6">
+        <LanguageSwitcher locale={locale} />
+      </div>
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
           Welcome to Lavorino
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Join our growing community of service providers
+          Let&apos;s get your business set up in just a few steps
         </p>
       </div>
+
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <div className="space-y-6">
-            <div className="text-gray-600 space-y-4">
-              <p>
-                Registering your business with Lavorino is quick and easy - it takes just a few minutes to get started. Once registered, you'll be able to:
-              </p>
-              <ul className="list-disc pl-5 space-y-2">
-                <li>Create a professional business profile</li>
-                <li>List your services and expertise</li>
-                <li>Connect with potential customers in your area</li>
-                <li>Grow your business through our platform</li>
+            <div>
+              <h3 className="text-lg font-medium text-gray-900 mb-4">What you&apos;ll need:</h3>
+              <ul className="space-y-3 text-sm text-gray-600">
+                <li className="flex items-start">
+                  <span className="text-emerald-500 mr-2">•</span>
+                  Business information and contact details
+                </li>
+                <li className="flex items-start">
+                  <span className="text-emerald-500 mr-2">•</span>
+                  Owner identification and registration details
+                </li>
+                <li className="flex items-start">
+                  <span className="text-emerald-500 mr-2">•</span>
+                  Service descriptions and pricing information
+                </li>
+                <li className="flex items-start">
+                  <span className="text-emerald-500 mr-2">•</span>
+                  Availability schedule and working hours
+                </li>
               </ul>
-              <p>
-                Let's get your business online and start connecting with customers who need your services.
+            </div>
+
+            <div className="flex space-x-4">
+              <Link
+                href="/provider-onboarding/details"
+                className="flex-1 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            <div className="text-center">
+              <p className="text-sm text-gray-600">
+                Already have an account?{' '}
+                <Link href="/provider-login" className="font-medium text-emerald-600 hover:text-emerald-500">
+                  Sign in
+                </Link>
               </p>
             </div>
-            <a
-              href="/provider-onboarding/details"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
-            >
-              Let's Get Started
-            </a>
           </div>
         </div>
       </div>

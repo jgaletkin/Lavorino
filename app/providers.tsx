@@ -4,12 +4,14 @@
 // import i18next from './i18n/client';
 // import { UserProvider } from '@/lib/contexts/UserContext';
 
-interface ProvidersProps {
-  children: React.ReactNode;
-  lang: string;
+import { Locale } from './i18n/settings'
+import ProvidersContent from './providers/ProvidersContent'
+
+interface PageProps {
+  params: { locale: Locale }
 }
 
-export default function Providers({ children, lang }: ProvidersProps) {
+export default function Providers({ params: { locale } }: PageProps) {
   // if (typeof window !== 'undefined') {
   //   i18next.changeLanguage(lang);
   // }
@@ -20,6 +22,6 @@ export default function Providers({ children, lang }: ProvidersProps) {
     //     {children}
     //   </UserProvider>
     // </I18nextProvider>
-    <>{children}</>
+    <ProvidersContent locale={locale} />
   );
 } 

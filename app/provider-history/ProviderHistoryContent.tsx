@@ -6,8 +6,15 @@ import { useClientTranslation } from '../i18n/client'
 import { Locale } from '../i18n/settings'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import ProviderMenu from '../components/ProviderMenu'
-import type { Transaction } from '../lib/types'
-import { mockTransactions } from '../lib/mockData'
+
+interface Transaction {
+  id: string
+  customerName: string
+  serviceType: string
+  amount: number
+  date: string
+  status: 'completed' | 'pending' | 'cancelled'
+}
 
 interface ProviderHistoryContentProps {
   locale: Locale;
@@ -15,34 +22,49 @@ interface ProviderHistoryContentProps {
 
 export default function ProviderHistoryContent({ locale }: ProviderHistoryContentProps) {
   const router = useRouter()
-  const { t } = useClientTranslation(locale, ['common'])
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [loading, setLoading] = useState(true)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null)
-  const [filterStatus, setFilterStatus] = useState<string>('all')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterStatus] = useState<string>('all')
 
   useEffect(() => {
-    // Simulate loading business data from localStorage
-    const loadData = async () => {
-      try {
-        // In a real app, this would be an API call
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        setTransactions(mockTransactions)
-      } catch (error) {
-        console.error('Error loading transactions:', error)
-      } finally {
-        setLoading(false)
+    // Simulate loading transactions
+    const mockTransactions: Transaction[] = [
+      {
+        id: '1',
+        customerName: 'John Doe',
+        serviceType: 'Cleaning',
+        amount: 150,
+        date: '2024-01-15',
+        status: 'completed'
+      },
+      {
+        id: '2',
+        customerName: 'Jane Smith',
+        serviceType: 'Gardening',
+        amount: 200,
+        date: '2024-01-14',
+        status: 'pending'
+      },
+      {
+        id: '3',
+        customerName: 'Bob Johnson',
+        serviceType: 'Plumbing',
+        amount: 300,
+        date: '2024-01-13',
+        status: 'completed'
       }
-    }
-
-    loadData()
+    ]
+    
+    setTimeout(() => {
+      setTransactions(mockTransactions)
+      setLoading(false)
+    }, 1000)
   }, [])
 
   const filteredTransactions = transactions.filter(transaction => {
-    const searchLower = searchQuery.toLowerCase()
-    const matchesSearch = transaction.customerName.toLowerCase().includes(searchLower) ||
-                         transaction.serviceType.toLowerCase().includes(searchLower)
+    const matchesSearch = transaction.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         transaction.serviceType.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesStatus = filterStatus === 'all' || transaction.status === filterStatus
     return matchesSearch && matchesStatus
   })
@@ -50,7 +72,6 @@ export default function ProviderHistoryContent({ locale }: ProviderHistoryConten
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        {/* Header */}
         <div className="bg-white shadow">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col space-y-2">
@@ -63,7 +84,7 @@ export default function ProviderHistoryContent({ locale }: ProviderHistoryConten
                 </span>
               </button>
               <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold text-gray-900">{t('title')}</h1>
+                <h1 className="text-3xl font-bold text-gray-900">Transaction History</h1>
                 <div className="flex items-center space-x-4">
                   <LanguageSwitcher locale={locale} />
                   <ProviderMenu locale={locale} />
@@ -72,15 +93,10 @@ export default function ProviderHistoryContent({ locale }: ProviderHistoryConten
             </div>
           </div>
         </div>
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
-            <div className="space-y-4">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="h-20 bg-gray-200 rounded"></div>
-              ))}
-            </div>
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading transactions...</p>
           </div>
         </div>
       </div>
@@ -102,7 +118,7 @@ export default function ProviderHistoryContent({ locale }: ProviderHistoryConten
               </span>
             </button>
             <div className="flex justify-between items-center">
-              <h1 className="text-3xl font-bold text-gray-900">{t('title')}</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Transaction History</h1>
               <div className="flex items-center space-x-4">
                 <LanguageSwitcher locale={locale} />
                 <ProviderMenu locale={locale} />
@@ -112,37 +128,45 @@ export default function ProviderHistoryContent({ locale }: ProviderHistoryConten
         </div>
       </div>
 
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <p className="mt-2 text-sm text-gray-600">
-            {t('description')}
-          </p>
+        {/* Search and Filter */}
+        <div className="mb-8 space-y-4">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1">
+              <input
+                type="text"
+                placeholder="Search by customer name or service type..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <select
+                value={filterStatus}
+                className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              >
+                <option value="all">All Status</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <div className="mb-6">
-          <input
-            type="text"
-            placeholder={t('searchPlaceholder')}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
+        {/* Transactions List */}
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
           <ul className="divide-y divide-gray-200">
             {filteredTransactions.map((transaction) => (
-              <li
-                key={transaction.id}
-                className="hover:bg-gray-50 cursor-pointer"
-                onClick={() => setSelectedTransaction(transaction)}
-              >
+              <li key={transaction.id}>
                 <div className="px-4 py-4 sm:px-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
-                        <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
-                          <span className="text-gray-500 text-sm">
+                        <div className="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center">
+                          <span className="text-emerald-600 font-medium">
                             {transaction.customerName.charAt(0)}
                           </span>
                         </div>
@@ -156,15 +180,25 @@ export default function ProviderHistoryContent({ locale }: ProviderHistoryConten
                         </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-sm font-medium text-gray-900">
-                        {transaction.amount.toLocaleString('en-US', {
-                          style: 'currency',
-                          currency: 'USD'
-                        })}
+                    <div className="flex items-center space-x-4">
+                      <div className="text-right">
+                        <div className="text-sm font-medium text-gray-900">
+                          ${transaction.amount}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {new Date(transaction.date).toLocaleDateString()}
+                        </div>
                       </div>
-                      <div className="text-sm text-gray-500">
-                        {new Date(transaction.date).toLocaleDateString()}
+                      <div>
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          transaction.status === 'completed'
+                            ? 'bg-green-100 text-green-800'
+                            : transaction.status === 'pending'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-red-100 text-red-800'
+                        }`}>
+                          {transaction.status.charAt(0).toUpperCase() + transaction.status.slice(1)}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -174,68 +208,10 @@ export default function ProviderHistoryContent({ locale }: ProviderHistoryConten
           </ul>
         </div>
 
-        {selectedTransaction && (
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center p-4">
-            <div className="bg-white rounded-lg max-w-lg w-full p-6">
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-lg font-medium text-gray-900">
-                  {t('transactionDetails')}
-                </h3>
-                <button
-                  onClick={() => setSelectedTransaction(null)}
-                  className="text-gray-400 hover:text-gray-500"
-                >
-                  <span className="sr-only">Close</span>
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <div className="space-y-4">
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    {t('customerName')}
-                  </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
-                    {selectedTransaction.customerName}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    {t('serviceType')}
-                  </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
-                    {selectedTransaction.serviceType}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    {t('amount')}
-                  </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
-                    {selectedTransaction.amount.toLocaleString('en-US', {
-                      style: 'currency',
-                      currency: 'USD'
-                    })}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    {t('date')}
-                  </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
-                    {new Date(selectedTransaction.date).toLocaleDateString()}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    {t('status')}
-                  </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
-                    {selectedTransaction.status}
-                  </dd>
-                </div>
-              </div>
+        {filteredTransactions.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-gray-500">
+              No transactions found matching your criteria.
             </div>
           </div>
         )}

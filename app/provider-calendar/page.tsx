@@ -1,51 +1,27 @@
-import dynamic from 'next/dynamic';
+import Link from 'next/link'
+import { Locale } from '../i18n/settings'
+import ProviderCalendarClient from './ProviderCalendarClient'
 
-const ProviderCalendarClient = dynamic(() => import('./ProviderCalendarClient'), { ssr: false });
+interface PageProps {
+  params: { locale: Locale }
+}
 
-const mockAppointments = [
-  {
-    id: 1,
-    title: 'Plumbing Repair - John Smith',
-    start: new Date(2024, 2, 15, 10, 0),
-    end: new Date(2024, 2, 15, 12, 0),
-    type: 'confirmed',
-  },
-  {
-    id: 2,
-    title: 'Electrical Installation - Maria Garcia',
-    start: new Date(2024, 2, 16, 14, 0),
-    end: new Date(2024, 2, 16, 16, 0),
-    type: 'confirmed',
-  },
-  {
-    id: 3,
-    title: 'Garden Maintenance - Robert Johnson',
-    start: new Date(2024, 2, 17, 9, 0),
-    end: new Date(2024, 2, 17, 11, 0),
-    type: 'suggested',
-  },
-  {
-    id: 4,
-    title: 'HVAC Service - Sarah Williams',
-    start: new Date(2024, 2, 18, 13, 0),
-    end: new Date(2024, 2, 18, 15, 0),
-    type: 'suggested',
-  },
-];
-
-export default function ProviderCalendar() {
+export default function ProviderCalendar({ params: { locale } }: PageProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col space-y-2">
-            <a href="/provider-dashboard" className="focus:outline-none self-start">
+            <Link
+              href="/provider-dashboard"
+              className="focus:outline-none self-start"
+            >
               <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
                 Lavorino
               </span>
-            </a>
+            </Link>
             <div className="flex justify-between items-center">
-              <h1 className="text-3xl font-bold text-gray-900">Provider Calendar</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Calendar</h1>
             </div>
           </div>
         </div>
@@ -62,7 +38,7 @@ export default function ProviderCalendar() {
               <span className="text-sm text-gray-600">Suggested</span>
             </div>
           </div>
-          <ProviderCalendarClient events={mockAppointments} />
+          <ProviderCalendarClient locale={locale} />
         </div>
       </div>
     </div>

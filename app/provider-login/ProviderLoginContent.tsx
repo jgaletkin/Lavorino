@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import { useClientTranslation } from '../i18n/client'
 import { Locale } from '../i18n/settings'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 
@@ -11,14 +10,12 @@ interface ProviderLoginContentProps {
 }
 
 export default function ProviderLoginContent({ locale }: ProviderLoginContentProps) {
-  const { t } = useClientTranslation(locale, ['common'])
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const [showGDPRNotice, setShowGDPRNotice] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-  const [isBusinessLogin, setIsBusinessLogin] = useState(false)
 
   useEffect(() => {
     // Check if user has already consented

@@ -143,7 +143,7 @@ export default function ProviderOnboardingConfirmationContent({ locale }: Provid
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
       {/* Language Switch Button */}
       <div className="absolute top-6 right-6">
-        <LanguageSwitcher />
+        <LanguageSwitcher locale={locale} />
       </div>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-3xl">

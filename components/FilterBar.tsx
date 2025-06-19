@@ -3,18 +3,17 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { StarIcon } from '@heroicons/react/20/solid'
-
-export interface ProviderFilters {
-  search: string
-  rating: number | null
-  priceRange: [number, number] | null
-  distance: number | null
-  specialty: string | null
-}
 
 interface FilterBarProps {
-  onFilterChange: (filters: ProviderFilters) => void
+  onFilterChange: (filters: FilterOptions) => void
+}
+
+interface FilterOptions {
+  search: string
+  category: string
+  priceRange: [number, number] | null
+  rating: number | null
+  distance: number | null
 }
 
 // List of available specialties based on the mock data
@@ -40,18 +39,32 @@ const availableSpecialties = [
 
 export default function FilterBar({ onFilterChange }: FilterBarProps) {
   const { t } = useTranslation('providers')
-  const [filters, setFilters] = useState<ProviderFilters>({
-    search: '',
-    rating: null,
-    priceRange: null,
-    distance: null,
-    specialty: null
-  })
+  const [search, setSearch] = useState('')
+  const [category, setCategory] = useState('')
+  const [priceRange, setPriceRange] = useState<[number, number] | null>(null)
+  const [rating, setRating] = useState<number | null>(null)
+  const [distance, setDistance] = useState<number | null>(null)
 
-  const handleFilterChange = (key: keyof ProviderFilters, value: any) => {
-    const newFilters = { ...filters, [key]: value }
-    setFilters(newFilters)
-    onFilterChange(newFilters)
+  const handleSearchChange = (value: string) => {
+    setSearch(value)
+    onFilterChange({
+      search: value,
+      category,
+      priceRange,
+      rating,
+      distance
+    })
+  }
+
+  const handleRatingChange = (value: number | null) => {
+    setRating(value)
+    onFilterChange({
+      search,
+      category,
+      priceRange,
+      rating: value,
+      distance
+    })
   }
 
   return (
@@ -65,8 +78,8 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
           type="text"
           className="block w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           placeholder={t('providers:filters.searchPlaceholder')}
-          value={filters.search}
-          onChange={(e) => handleFilterChange('search', e.target.value)}
+          value={search}
+          onChange={(e) => handleSearchChange(e.target.value)}
         />
       </div>
 
@@ -79,10 +92,10 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-            value={filters.rating?.toString() || ''}
+            value={rating?.toString() || ''}
             onChange={(e) => {
               const value = e.target.value ? Number(e.target.value) : null
-              handleFilterChange('rating', value)
+              handleRatingChange(value)
             }}
           >
             <option value="">{t('providers:filters.any')}</option>
@@ -99,15 +112,15 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-            value={filters.priceRange ? `${filters.priceRange[0]}-${filters.priceRange[1]}` : ''}
+            value={priceRange ? `${priceRange[0]}-${priceRange[1]}` : ''}
             onChange={(e) => {
               const value = e.target.value
               if (!value) {
-                handleFilterChange('priceRange', null)
+                setPriceRange(null)
                 return
               }
               const [min, max] = value.split('-').map(Number)
-              handleFilterChange('priceRange', [min, max])
+              setPriceRange([min, max])
             }}
           >
             <option value="">{t('providers:filters.any')}</option>
@@ -125,10 +138,10 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-            value={filters.distance?.toString() || ''}
+            value={distance?.toString() || ''}
             onChange={(e) => {
               const value = e.target.value ? Number(e.target.value) : null
-              handleFilterChange('distance', value)
+              setDistance(value)
             }}
           >
             <option value="">{t('providers:filters.any')}</option>
@@ -146,8 +159,8 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-            value={filters.specialty || ''}
-            onChange={(e) => handleFilterChange('specialty', e.target.value || null)}
+            value={category || ''}
+            onChange={(e) => setCategory(e.target.value || '')}
           >
             <option value="">{t('providers:filters.any')}</option>
             {availableSpecialties.map((specialty) => (

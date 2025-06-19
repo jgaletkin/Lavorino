@@ -1,37 +1,22 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
-    const body = await request.json()
-    const { email, password } = body
-
-    // TODO: Implement actual authentication logic here
-    // For now, we'll just create a mock user
-    const user = {
-      id: 'user123',
-      name: 'Demo User',
-      email: email,
-      type: 'customer'
-    }
-
-    // Create the response
-    const response = NextResponse.json({ success: true, user })
-
-    // Set the user cookie
-    response.cookies.set('user', JSON.stringify(user), {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 7 // 1 week
+    // Mock authentication logic
+    return NextResponse.json({
+      success: true,
+      user: {
+        id: '1',
+        email: 'demo@demo.com',
+        name: 'Demo User',
+        role: 'provider'
+      }
     })
-
-    return response
-  } catch (error) {
-    return NextResponse.json(
-      { success: false, error: 'Authentication failed' },
-      { status: 401 }
-    )
+  } catch {
+    return NextResponse.json({
+      success: false,
+      error: 'Internal server error'
+    }, { status: 500 })
   }
 }
 

@@ -7,17 +7,44 @@ import { Locale } from '../i18n/settings'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import ProviderMenu from '../components/ProviderMenu'
 
+interface BusinessData {
+  businessDetails: {
+    businessName: string
+    categories: string[]
+    location: string
+    contactDetails: {
+      email: string
+      phone: string
+      website?: string
+    }
+  }
+  ownerDetails: {
+    name: string
+    registrationNumber?: string
+  }
+  services: Array<{
+    name: string
+    description: string
+    pricingModel: string
+    priceRange: {
+      min: number
+      max: number
+      currency: string
+    }
+    availability?: string[]
+  }>
+}
+
 interface ProviderProfileContentProps {
   locale: Locale;
 }
 
 export default function ProviderProfileContent({ locale }: ProviderProfileContentProps) {
   const router = useRouter()
-  const { t } = useClientTranslation(locale, ['common'])
-  const [businessData, setBusinessData] = useState<any>(null)
+  const [businessData, setBusinessData] = useState<BusinessData | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [editingSection, setEditingSection] = useState<string | null>(null)
-  const [formData, setFormData] = useState<any>({})
+  const [formData, setFormData] = useState<BusinessData | null>(null)
 
   useEffect(() => {
     try {
@@ -53,7 +80,7 @@ export default function ProviderProfileContent({ locale }: ProviderProfileConten
   const handleSave = () => {
     try {
       const providers = localStorage.getItem('providers')
-      if (providers) {
+      if (providers && formData) {
         const providersList = JSON.parse(providers)
         const updatedData = { ...businessData, ...formData }
         providersList[providersList.length - 1] = updatedData
@@ -67,14 +94,19 @@ export default function ProviderProfileContent({ locale }: ProviderProfileConten
     }
   }
 
-  const handleInputChange = (section: string, field: string, value: any) => {
-    setFormData((prev: any) => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [field]: value
+  const handleInputChange = (section: string, field: string, value: unknown) => {
+    if (!formData) return
+    
+    setFormData((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        [section]: {
+          ...prev[section as keyof BusinessData],
+          [field]: value
+        }
       }
-    }))
+    })
   }
 
   if (error) {
@@ -89,7 +121,7 @@ export default function ProviderProfileContent({ locale }: ProviderProfileConten
     )
   }
 
-  if (!businessData) {
+  if (!businessData || !formData) {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -408,7 +440,7 @@ export default function ProviderProfileContent({ locale }: ProviderProfileConten
                                     ...newServices[index],
                                     priceRange: {
                                       ...newServices[index]?.priceRange,
-                                      min: e.target.value
+                                      min: Number(e.target.value)
                                     }
                                   }
                                   setFormData({ ...formData, services: newServices })
@@ -425,7 +457,7 @@ export default function ProviderProfileContent({ locale }: ProviderProfileConten
                                     ...newServices[index],
                                     priceRange: {
                                       ...newServices[index]?.priceRange,
-                                      max: e.target.value
+                                      max: Number(e.target.value)
                                     }
                                   }
                                   setFormData({ ...formData, services: newServices })

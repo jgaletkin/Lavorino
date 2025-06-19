@@ -57,7 +57,7 @@ const initI18next = async (locale: string) => {
 }
 
 export function useClientTranslation(locale: string, namespaces: string | string[]) {
-  const [i18nInstance, setI18nInstance] = useState<any>(null)
+  const [i18nInstance, setI18nInstance] = useState<ReturnType<typeof createInstance> | null>(null)
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
@@ -69,11 +69,14 @@ export function useClientTranslation(locale: string, namespaces: string | string
     init()
   }, [locale])
 
+  // Always call useTranslation, but with a fallback when not ready
+  const translation = useTranslation(namespaces, { i18n: i18nInstance || undefined })
+
   if (!isReady || !i18nInstance) {
     return { t: (key: string) => key, i18n: null }
   }
 
-  return useTranslation(namespaces, { i18n: i18nInstance })
+  return translation
 }
 
 export default initI18next 

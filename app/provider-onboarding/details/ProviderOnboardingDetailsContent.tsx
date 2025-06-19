@@ -22,7 +22,7 @@ interface ProviderOnboardingDetailsContentProps {
   locale: Locale;
 }
 
-export default function ProviderOnboardingDetailsContent({ locale }: ProviderOnboardingDetailsContentProps) {
+export default function ProviderOnboardingDetailsContent({ locale: _ }: ProviderOnboardingDetailsContentProps) {
   const router = useRouter()
   const [formData, setFormData] = useState({
     businessName: '',

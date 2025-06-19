@@ -5,21 +5,17 @@ import { getTranslations } from '../i18n/server'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }))
-}
-
-export default async function LocaleLayout({
-  children,
-  params: { locale }
-}: {
+interface LayoutProps {
   children: React.ReactNode
   params: { locale: Locale }
-}) {
-  if (!locales.includes(locale)) notFound()
+}
+
+export default async function LocaleLayout({ children, params: { locale } }: LayoutProps) {
+  // Validate that the incoming `locale` parameter is valid
+  if (!locales.includes(locale as Locale)) notFound()
 
   // Get translations on the server
-  const { t } = await getTranslations(locale, 'common')
+  await getTranslations(locale, 'common')
 
   return (
     <html lang={locale}>
