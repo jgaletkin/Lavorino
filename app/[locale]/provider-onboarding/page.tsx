@@ -1,4 +1,4 @@
-import { getServerTranslations } from '../../i18n/server'
+import { getTranslations } from '../../i18n/server'
 import { Locale } from '../../i18n/settings'
 import ProviderOnboardingDetailsContent from '../../provider-onboarding/details/ProviderOnboardingDetailsContent'
 
@@ -9,7 +9,7 @@ interface PageProps {
 }
 
 export default async function ProviderOnboarding({ params: { locale } }: PageProps) {
-  const { t } = await getServerTranslations(locale, 'provider-onboarding')
+  const { t } = await getTranslations(locale, 'provider-onboarding')
 
   return (
     <main className="flex min-h-screen flex-col p-8">

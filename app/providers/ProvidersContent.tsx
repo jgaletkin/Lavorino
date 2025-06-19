@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useClientTranslation } from '../i18n/client'
 import { Locale } from '../i18n/settings'
 import { Provider } from '@/lib/types'
 import { mockProviders } from '@/lib/mockData'
@@ -16,7 +15,6 @@ interface ProvidersContentProps {
 }
 
 export default function ProvidersContent({ locale }: ProvidersContentProps) {
-  const { t } = useClientTranslation(locale, 'providers')
   const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null)
   const [isGridView, setIsGridView] = useState(false)
   const [filters, setFilters] = useState<ProviderFilters>({
@@ -83,7 +81,7 @@ export default function ProvidersContent({ locale }: ProvidersContentProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-900">
-            {t('providers.title')}
+            {/* {t('providers.title')} */}
           </h1>
           <div className="flex items-center space-x-2">
             <button

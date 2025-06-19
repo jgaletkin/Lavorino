@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { locales, Locale } from '../i18n/settings'
-import { getServerTranslations } from '../i18n/server'
+import { getTranslations } from '../i18n/server'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +19,7 @@ export default async function LocaleLayout({
   if (!locales.includes(locale)) notFound()
 
   // Get translations on the server
-  const { t } = await getServerTranslations(locale)
+  const { t } = await getTranslations(locale, 'common')
 
   return (
     <html lang={locale}>

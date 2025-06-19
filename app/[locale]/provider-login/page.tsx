@@ -1,4 +1,4 @@
-import { getServerTranslations } from '../../i18n/server'
+import { getTranslations } from '../../i18n/server'
 import { Locale } from '../../i18n/settings'
 
 export default async function ProviderLogin({
@@ -6,7 +6,7 @@ export default async function ProviderLogin({
 }: {
   params: { locale: Locale }
 }) {
-  const { t } = await getServerTranslations(locale, 'provider-login')
+  const { t } = await getTranslations(locale, 'provider-login')
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">

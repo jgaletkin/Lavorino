@@ -1,4 +1,4 @@
-import { getServerTranslations } from '../../i18n/server'
+import { getTranslations } from '../../i18n/server'
 import { Locale } from '../../i18n/settings'
 
 export default async function ProviderProfile({
@@ -6,7 +6,7 @@ export default async function ProviderProfile({
 }: {
   params: { locale: Locale }
 }) {
-  const { t } = await getServerTranslations(locale, 'provider-profile')
+  const { t } = await getTranslations(locale, 'provider-profile')
 
   return (
     <main className="flex min-h-screen flex-col p-8">

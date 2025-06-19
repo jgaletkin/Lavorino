@@ -1,4 +1,4 @@
-import { getServerTranslations } from '../../i18n/server'
+import { getTranslations } from '../../i18n/server'
 import { Locale } from '../../i18n/settings'
 import ProviderCalendarContent from '../../provider-calendar/ProviderCalendarContent'
 
@@ -9,7 +9,7 @@ interface PageProps {
 }
 
 export default async function ProviderCalendar({ params: { locale } }: PageProps) {
-  const { t } = await getServerTranslations(locale, 'provider-calendar')
+  const { t } = await getTranslations(locale, 'provider-calendar')
 
   return (
     <main className="flex min-h-screen flex-col p-8">

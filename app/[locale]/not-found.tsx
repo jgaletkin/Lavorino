@@ -1,4 +1,4 @@
-import { getServerTranslations } from '../i18n/server'
+import { getTranslations } from '../i18n/server'
 import { Locale } from '../i18n/settings'
 
 interface NotFoundProps {
@@ -8,7 +8,7 @@ interface NotFoundProps {
 }
 
 export default async function NotFound({ params: { locale } }: NotFoundProps) {
-  const { t } = await getServerTranslations(locale)
+  const { t } = await getTranslations(locale, 'common')
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">

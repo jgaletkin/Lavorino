@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useClientTranslation } from '../../i18n/client'
 import { Locale } from '../../i18n/settings'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 
@@ -25,7 +24,6 @@ interface ProviderOnboardingDetailsContentProps {
 
 export default function ProviderOnboardingDetailsContent({ locale }: ProviderOnboardingDetailsContentProps) {
   const router = useRouter()
-  const { t } = useClientTranslation(locale, ['onboarding', 'common'])
   const [formData, setFormData] = useState({
     businessName: '',
     categories: [] as string[],

@@ -2,314 +2,126 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useClientTranslation } from '../i18n/client';
 import { Locale } from '../i18n/settings';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import ProviderMenu from '../components/ProviderMenu';
-// import { ResponsiveBar } from '@nivo/bar';
-// import { ResponsiveLine } from '@nivo/line';
-// import { ResponsivePie } from '@nivo/pie';
-
-// Mock data for impressions vs clicks
-const impressionsClicksData = [
-  { date: 'Mon', impressions: 120, clicks: 45 },
-  { date: 'Tue', impressions: 150, clicks: 60 },
-  { date: 'Wed', impressions: 180, clicks: 75 },
-  { date: 'Thu', impressions: 160, clicks: 65 },
-  { date: 'Fri', impressions: 200, clicks: 85 },
-  { date: 'Sat', impressions: 250, clicks: 100 },
-  { date: 'Sun', impressions: 220, clicks: 90 }
-];
-
-// Mock data for competitive performance
-const competitiveData = [
-  {
-    id: 'Your Business',
-    data: [
-      { x: 'Week 1', y: 45 },
-      { x: 'Week 2', y: 60 },
-      { x: 'Week 3', y: 75 },
-      { x: 'Week 4', y: 65 },
-      { x: 'Week 5', y: 85 },
-      { x: 'Week 6', y: 100 },
-      { x: 'Week 7', y: 90 }
-    ]
-  },
-  {
-    id: 'Industry Average',
-    data: [
-      { x: 'Week 1', y: 40 },
-      { x: 'Week 2', y: 55 },
-      { x: 'Week 3', y: 65 },
-      { x: 'Week 4', y: 60 },
-      { x: 'Week 5', y: 75 },
-      { x: 'Week 6', y: 85 },
-      { x: 'Week 7', y: 80 }
-    ]
-  }
-];
-
-// Mock data for service demand
-const serviceDemandData = [
-  { id: 'Plumbing', value: 35, label: 'Plumbing' },
-  { id: 'Electrical', value: 25, label: 'Electrical' },
-  { id: 'Carpentry', value: 20, label: 'Carpentry' },
-  { id: 'Painting', value: 15, label: 'Painting' },
-  { id: 'Cleaning', value: 5, label: 'Cleaning' }
-];
+import type { Transaction } from '../lib/types';
+import { mockTransactions } from '../lib/mockData';
 
 interface ProviderDashboardClientProps {
   locale: Locale;
+  translations: {
+    welcome: string;
+    stats: {
+      appointments: string;
+      revenue: string;
+      rating: string;
+    };
+    upcoming: {
+      title: string;
+      noAppointments: string;
+    };
+  };
 }
 
-export default function ProviderDashboardClient({ locale }: ProviderDashboardClientProps) {
+export default function ProviderDashboardClient({ locale, translations }: ProviderDashboardClientProps) {
   const router = useRouter();
-  const { t } = useClientTranslation(locale, ['dashboard', 'common']);
-  const [timeScale, setTimeScale] = useState<'weeks' | 'months'>('weeks');
-  const [businessData, setBusinessData] = useState<any>(null);
+  const [appointments, setAppointments] = useState<Transaction[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        // Load business data from localStorage
-        const providers = localStorage.getItem('providers');
-        if (providers) {
-          const providersList = JSON.parse(providers);
-          if (providersList.length > 0) {
-            setBusinessData(providersList[providersList.length - 1]);
-          } else {
-            // If no providers found, redirect to login
-            router.push('/provider-login');
-          }
-        } else {
-          // If no providers data found, redirect to login
-          router.push('/provider-login');
-        }
-      } catch (err) {
-        console.error('Error loading provider data:', err);
-        router.push('/provider-login');
-      }
-    };
+    // Simulate loading appointments
+    setTimeout(() => {
+      setAppointments(mockTransactions);
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
-    loadData();
-  }, []); // Empty dependency array since router is stable
+  const handleLogout = () => {
+    localStorage.removeItem('auth-token');
+    router.push('/');
+  };
 
-  if (!businessData) {
+  if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-            Loading...
-          </h2>
+      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
+        <div className="absolute top-6 right-6">
+          <LanguageSwitcher locale={locale} />
+        </div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col space-y-2">
-            <button
-              onClick={() => router.push('/provider-dashboard')}
-              className="focus:outline-none self-start"
-            >
-              <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
-                Lavorino
-              </span>
-            </button>
-            <div className="flex justify-between items-center">
-              <h1 className="text-3xl font-bold text-gray-900">
-                {businessData?.businessDetails?.businessName || 'Business'} Dashboard
-              </h1>
-              <div className="flex items-center space-x-4">
-                <LanguageSwitcher locale={locale} />
-                <ProviderMenu locale={locale} />
-              </div>
-            </div>
-          </div>
-        </div>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
+      {/* Language Switch Button */}
+      <div className="absolute top-6 right-6">
+        <LanguageSwitcher locale={locale} />
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 gap-8">
-          {/* Impressions vs Clicks Chart */}
-          {/* <div className="bg-white p-6 rounded-lg shadow">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Impressions vs Clicks</h2>
-            <div className="h-80">
-              <ResponsiveBar
-                data={impressionsClicksData}
-                keys={['impressions', 'clicks']}
-                indexBy="date"
-                margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-                padding={0.3}
-                valueScale={{ type: 'linear' }}
-                colors={{ scheme: 'nivo' }}
-                axisTop={null}
-                axisRight={null}
-                axisBottom={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legend: 'Date',
-                  legendPosition: 'middle',
-                  legendOffset: 32
-                }}
-                axisLeft={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legend: 'Count',
-                  legendPosition: 'middle',
-                  legendOffset: -40
-                }}
-                labelSkipWidth={12}
-                labelSkipHeight={12}
-                legends={[
-                  {
-                    dataFrom: 'keys',
-                    anchor: 'bottom-right',
-                    direction: 'column',
-                    justify: false,
-                    translateX: 120,
-                    translateY: 0,
-                    itemsSpacing: 2,
-                    itemWidth: 100,
-                    itemHeight: 20,
-                    itemDirection: 'left-to-right',
-                    itemOpacity: 0.85,
-                    symbolSize: 20
-                  }
-                ]}
-              />
-            </div>
-          </div> */}
+      <div className="sm:mx-auto sm:w-full sm:max-w-4xl">
+        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+          {translations.welcome}
+        </h2>
+      </div>
 
-          {/* Competitive Performance Chart */}
-          {/* <div className="bg-white p-6 rounded-lg shadow">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-gray-900">Competitive Performance</h2>
-              <div className="flex space-x-2">
-                <button
-                  onClick={() => setTimeScale('weeks')}
-                  className={`px-3 py-1 rounded-md text-sm ${
-                    timeScale === 'weeks'
-                      ? 'bg-emerald-600 text-white'
-                      : 'bg-gray-100 text-gray-700'
-                  }`}
-                >
-                  Weeks
-                </button>
-                <button
-                  onClick={() => setTimeScale('months')}
-                  className={`px-3 py-1 rounded-md text-sm ${
-                    timeScale === 'months'
-                      ? 'bg-emerald-600 text-white'
-                      : 'bg-gray-100 text-gray-700'
-                  }`}
-                >
-                  Months
-                </button>
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-4xl">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-emerald-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold text-emerald-800">{translations.stats.appointments}</h3>
+              <p className="text-3xl font-bold text-emerald-600">{appointments.length}</p>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold text-blue-800">{translations.stats.revenue}</h3>
+              <p className="text-3xl font-bold text-blue-600">€2,450</p>
+            </div>
+            <div className="bg-yellow-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold text-yellow-800">{translations.stats.rating}</h3>
+              <p className="text-3xl font-bold text-yellow-600">4.8</p>
+            </div>
+          </div>
+
+          {/* Upcoming Appointments */}
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4">{translations.upcoming.title}</h3>
+            {appointments.length > 0 ? (
+              <div className="space-y-4">
+                {appointments.slice(0, 3).map((appointment) => (
+                  <div key={appointment.id} className="border rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="font-medium">{appointment.customerName}</p>
+                        <p className="text-gray-600">{appointment.serviceType}</p>
+                        <p className="text-sm text-gray-500">{appointment.date}</p>
+                      </div>
+                      <span className="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm">
+                        {appointment.status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-            <div className="h-80">
-              <ResponsiveLine
-                data={competitiveData}
-                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-                xScale={{ type: 'point' }}
-                yScale={{
-                  type: 'linear',
-                  min: 'auto',
-                  max: 'auto',
-                  stacked: false
-                }}
-                axisTop={null}
-                axisRight={null}
-                axisBottom={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legend: 'Time',
-                  legendOffset: 36,
-                  legendPosition: 'middle'
-                }}
-                axisLeft={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legend: 'Clicks',
-                  legendOffset: -40,
-                  legendPosition: 'middle'
-                }}
-                pointSize={10}
-                pointColor={{ theme: 'background' }}
-                pointBorderWidth={2}
-                pointBorderColor={{ from: 'serieColor' }}
-                pointLabelYOffset={-12}
-                useMesh={true}
-                legends={[
-                  {
-                    anchor: 'bottom-right',
-                    direction: 'column',
-                    justify: false,
-                    translateX: 100,
-                    translateY: 0,
-                    itemsSpacing: 0,
-                    itemDirection: 'left-to-right',
-                    itemWidth: 80,
-                    itemHeight: 20,
-                    itemOpacity: 0.75,
-                    symbolSize: 12,
-                    symbolShape: 'circle'
-                  }
-                ]}
-              />
-            </div>
-          </div> */}
+            ) : (
+              <p className="text-gray-500 text-center py-8">{translations.upcoming.noAppointments}</p>
+            )}
+          </div>
 
-          {/* Service Demand Chart */}
-          {/* <div className="bg-white p-6 rounded-lg shadow">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Service Type Demand</h2>
-            <div className="h-80">
-              <ResponsivePie
-                data={serviceDemandData}
-                margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-                innerRadius={0.5}
-                padAngle={0.7}
-                cornerRadius={3}
-                activeOuterRadiusOffset={8}
-                colors={{ scheme: 'nivo' }}
-                borderWidth={1}
-                borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
-                arcLinkLabelsSkipAngle={10}
-                arcLinkLabelsTextColor="#333333"
-                arcLinkLabelsThickness={2}
-                arcLinkLabelsColor={{ from: 'color' }}
-                arcLabelsSkipAngle={10}
-                arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
-                legends={[
-                  {
-                    anchor: 'bottom',
-                    direction: 'row',
-                    justify: false,
-                    translateX: 0,
-                    translateY: 56,
-                    itemsSpacing: 0,
-                    itemWidth: 100,
-                    itemHeight: 18,
-                    itemTextColor: '#999',
-                    itemDirection: 'left-to-right',
-                    itemOpacity: 1,
-                    symbolSize: 18,
-                    symbolShape: 'circle'
-                  }
-                ]}
-              />
-            </div>
-          </div> */}
+          {/* Navigation */}
+          <div className="flex justify-between items-center">
+            <ProviderMenu locale={locale} />
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </div>

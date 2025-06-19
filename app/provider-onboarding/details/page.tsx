@@ -1,3 +1,4 @@
+import { Locale } from '../../i18n/settings'
 import ProviderOnboardingDetailsContent from '@/app/provider-onboarding/details/ProviderOnboardingDetailsContent'
 
 interface PageProps {
@@ -7,5 +8,5 @@ interface PageProps {
 }
 
 export default function ProviderOnboardingDetailsPage({ params }: PageProps) {
-  return <ProviderOnboardingDetailsContent />
+  return <ProviderOnboardingDetailsContent locale={'en' as Locale} />
 } 

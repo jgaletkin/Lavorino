@@ -1,31 +1,48 @@
 'use client'
 
-import { useClientTranslation } from '../i18n/client'
+import { useRouter, usePathname } from 'next/navigation'
 import { Locale } from '../i18n/settings'
-import { GlobeAltIcon } from '@heroicons/react/24/outline'
 
 interface LanguageSwitcherProps {
-  locale: Locale
+  locale: Locale;
+  translations?: {
+    en: string;
+    it: string;
+  };
 }
 
-export default function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
-  const { i18n } = useClientTranslation(locale)
+export default function LanguageSwitcher({ locale, translations }: LanguageSwitcherProps) {
+  const router = useRouter()
+  const pathname = usePathname()
 
-  const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'it' : 'en'
-    i18n.changeLanguage(newLang)
+  const handleLanguageChange = (newLocale: Locale) => {
+    if (!pathname) return
+    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`)
+    router.push(newPath)
   }
 
   return (
-    <button
-      onClick={toggleLanguage}
-      className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-100 focus:outline-none"
-      title={i18n.language === 'en' ? 'Switch to Italian' : 'Passa all\'inglese'}
-    >
-      <GlobeAltIcon className="h-6 w-6 text-gray-600" />
-      <span className="text-sm font-medium text-gray-700">
-        {i18n.language.toUpperCase()}
-      </span>
-    </button>
+    <div className="flex space-x-2">
+      <button
+        onClick={() => handleLanguageChange('en')}
+        className={`px-3 py-1 rounded-md text-sm font-medium ${
+          locale === 'en'
+            ? 'bg-emerald-600 text-white'
+            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+        }`}
+      >
+        {translations?.en || 'EN'}
+      </button>
+      <button
+        onClick={() => handleLanguageChange('it')}
+        className={`px-3 py-1 rounded-md text-sm font-medium ${
+          locale === 'it'
+            ? 'bg-emerald-600 text-white'
+            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+        }`}
+      >
+        {translations?.it || 'IT'}
+      </button>
+    </div>
   )
 } 

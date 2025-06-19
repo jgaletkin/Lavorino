@@ -1,0 +1,13 @@
+{
+  "title": "Cronologia Servizi",
+  "filterAll": "Tutti",
+  "filterCompleted": "Completati",
+  "filterCancelled": "Annullati",
+  "export": "Esporta",
+  "date": "Data",
+  "client": "Cliente",
+  "service": "Servizio",
+  "status": "Stato",
+  "actions": "Azioni",
+  "noAppointments": "Nessun appuntamento trovato"
+} 

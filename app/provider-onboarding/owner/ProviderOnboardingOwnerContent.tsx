@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useClientTranslation } from '../../i18n/client'
 import { Locale } from '../../i18n/settings'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 
@@ -12,7 +11,6 @@ interface ProviderOnboardingOwnerContentProps {
 
 export default function ProviderOnboardingOwnerContent({ locale }: ProviderOnboardingOwnerContentProps) {
   const router = useRouter()
-  const { t } = useClientTranslation(locale, ['onboarding', 'common'])
   const [formData, setFormData] = useState({
     ownerName: '',
     registrationNumber: ''
@@ -48,10 +46,10 @@ export default function ProviderOnboardingOwnerContent({ locale }: ProviderOnboa
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          {t('onboarding.owner.title')}
+          {/* {t('onboarding.owner.title')} */}
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          {t('onboarding.owner.description')}
+          {/* {t('onboarding.owner.description')} */}
         </p>
       </div>
 
@@ -61,7 +59,7 @@ export default function ProviderOnboardingOwnerContent({ locale }: ProviderOnboa
             {/* Owner Name */}
             <div>
               <label htmlFor="ownerName" className="block text-sm font-medium text-gray-700">
-                {t('onboarding.owner.nameLabel')} *
+                {/* {t('onboarding.owner.nameLabel')} * */}
               </label>
               <input
                 type="text"
@@ -77,7 +75,7 @@ export default function ProviderOnboardingOwnerContent({ locale }: ProviderOnboa
             {/* Business Registration Number */}
             <div>
               <label htmlFor="registrationNumber" className="block text-sm font-medium text-gray-700">
-                {t('onboarding.owner.registrationNumberLabel')}
+                {/* {t('onboarding.owner.registrationNumberLabel')} */}
               </label>
               <input
                 type="text"
@@ -85,11 +83,11 @@ export default function ProviderOnboardingOwnerContent({ locale }: ProviderOnboa
                 id="registrationNumber"
                 value={formData.registrationNumber}
                 onChange={handleInputChange}
-                placeholder={t('onboarding.owner.registrationNumberPlaceholder')}
+                placeholder="Enter registration number"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"
               />
               <p className="mt-1 text-sm text-gray-500">
-                {t('onboarding.owner.registrationNumberDescription')}
+                {/* {t('onboarding.owner.registrationNumberDescription')} */}
               </p>
             </div>
 
@@ -98,7 +96,7 @@ export default function ProviderOnboardingOwnerContent({ locale }: ProviderOnboa
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
               >
-                {t('onboarding.owner.continueButton')}
+                {/* {t('onboarding.owner.continueButton')} */}
               </button>
             </div>
           </form>

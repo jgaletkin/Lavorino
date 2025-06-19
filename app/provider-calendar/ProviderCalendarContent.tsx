@@ -1,6 +1,6 @@
 'use client'
 
-import { useClientTranslation } from '../i18n/client'
+// import { useClientTranslation } from '../i18n/client'
 import { Locale } from '../i18n/settings'
 
 interface ProviderCalendarContentProps {
@@ -8,7 +8,7 @@ interface ProviderCalendarContentProps {
 }
 
 export default function ProviderCalendarContent({ locale }: ProviderCalendarContentProps) {
-  const { t } = useClientTranslation(locale, 'provider-calendar')
+  // const { t } = useClientTranslation(locale, 'provider-calendar')
 
   return (
     <div className="bg-white rounded-lg shadow">
@@ -16,19 +16,19 @@ export default function ProviderCalendarContent({ locale }: ProviderCalendarCont
         <div className="flex justify-between items-center">
           <div className="flex space-x-4">
             <button className="px-3 py-1 border rounded-md hover:bg-gray-50">
-              {t('provider-calendar.today')}
+              {/* {t('provider-calendar.today')} */}
             </button>
             <div className="flex space-x-2">
               <button className="px-3 py-1 border rounded-md hover:bg-gray-50">
-                {t('provider-calendar.previous')}
+                {/* {t('provider-calendar.previous')} */}
               </button>
               <button className="px-3 py-1 border rounded-md hover:bg-gray-50">
-                {t('provider-calendar.next')}
+                {/* {t('provider-calendar.next')} */}
               </button>
             </div>
           </div>
           <h2 className="text-lg font-semibold">
-            {t('provider-calendar.currentMonth')}
+            {/* {t('provider-calendar.currentMonth')} */}
           </h2>
         </div>
       </div>
@@ -37,14 +37,14 @@ export default function ProviderCalendarContent({ locale }: ProviderCalendarCont
         <div className="grid grid-cols-7 gap-px bg-gray-200">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
             <div key={day} className="bg-white p-2 text-center text-sm font-medium text-gray-500">
-              {t(`provider-calendar.days.${day.toLowerCase()}`)}
+              {/* {t(`provider-calendar.days.${day.toLowerCase()}`)} */}
             </div>
           ))}
         </div>
         <div className="grid grid-cols-7 gap-px bg-gray-200">
           {/* Calendar days would go here */}
           <div className="bg-white p-2 h-32">
-            <p className="text-sm text-gray-500">{t('provider-calendar.noEvents')}</p>
+            <p className="text-sm text-gray-500">{/* {t('provider-calendar.noEvents')} */}</p>
           </div>
         </div>
       </div>

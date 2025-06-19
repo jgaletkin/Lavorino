@@ -1,0 +1,13 @@
+{
+  "title": "Service History",
+  "filterAll": "All",
+  "filterCompleted": "Completed",
+  "filterCancelled": "Cancelled",
+  "export": "Export",
+  "date": "Date",
+  "client": "Client",
+  "service": "Service",
+  "status": "Status",
+  "actions": "Actions",
+  "noAppointments": "No appointments found"
+} 

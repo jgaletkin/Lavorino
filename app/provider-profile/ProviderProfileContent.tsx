@@ -13,7 +13,7 @@ interface ProviderProfileContentProps {
 
 export default function ProviderProfileContent({ locale }: ProviderProfileContentProps) {
   const router = useRouter()
-  const { t } = useClientTranslation(locale, ['profile', 'common'])
+  const { t } = useClientTranslation(locale, ['common'])
   const [businessData, setBusinessData] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
   const [editingSection, setEditingSection] = useState<string | null>(null)
@@ -118,7 +118,7 @@ export default function ProviderProfileContent({ locale }: ProviderProfileConten
               </span>
             </button>
             <div className="flex justify-between items-center">
-              <h1 className="text-3xl font-bold text-gray-900">{t('profile:title')}</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
               <div className="flex items-center space-x-4">
                 <LanguageSwitcher locale={locale} />
                 <ProviderMenu locale={locale} />

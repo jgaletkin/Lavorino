@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useClientTranslation } from '../../i18n/client'
 import { Locale } from '../../i18n/settings'
 import LanguageSwitcher from '../../../components/LanguageSwitcher'
 
@@ -65,7 +64,6 @@ interface ProviderOnboardingConfirmationContentProps {
 
 export default function ProviderOnboardingConfirmationContent({ locale }: ProviderOnboardingConfirmationContentProps) {
   const router = useRouter()
-  const { t } = useClientTranslation(locale, ['onboarding', 'common'])
   const [onboardingData, setOnboardingData] = useState<OnboardingData | null>(null)
   const [isInfoConfirmed, setIsInfoConfirmed] = useState(false)
   const [isTermsAccepted, setIsTermsAccepted] = useState(false)
@@ -150,10 +148,10 @@ export default function ProviderOnboardingConfirmationContent({ locale }: Provid
 
       <div className="sm:mx-auto sm:w-full sm:max-w-3xl">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          {t('onboarding.confirmation.title')}
+          {/* Translation placeholder */}
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          {t('onboarding.confirmation.description')}
+          {/* Translation placeholder */}
         </p>
       </div>
 
@@ -276,7 +274,7 @@ export default function ProviderOnboardingConfirmationContent({ locale }: Provid
                 </div>
                 <div className="ml-3 text-sm">
                   <span className="text-gray-700">
-                    {t('onboarding.confirmation.info_confirmation')}
+                    {/* Translation placeholder */}
                   </span>
                 </div>
               </label>
@@ -292,7 +290,7 @@ export default function ProviderOnboardingConfirmationContent({ locale }: Provid
                 </div>
                 <div className="ml-3 text-sm">
                   <span className="text-gray-700">
-                    {t('onboarding.confirmation.terms_acceptance')}
+                    {/* Translation placeholder */}
                   </span>
                 </div>
               </label>

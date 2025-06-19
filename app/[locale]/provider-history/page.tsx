@@ -1,4 +1,4 @@
-import { getServerTranslations } from '../../i18n/server'
+import { getTranslations } from '../../i18n/server'
 import { Locale } from '../../i18n/settings'
 import ProviderHistoryContent from '../../provider-history/ProviderHistoryContent'
 
@@ -9,7 +9,7 @@ interface PageProps {
 }
 
 export default async function ProviderHistory({ params: { locale } }: PageProps) {
-  const { t } = await getServerTranslations(locale, 'provider-history')
+  const { t } = await getTranslations(locale, 'provider-history')
 
   return (
     <main className="flex min-h-screen flex-col p-8">

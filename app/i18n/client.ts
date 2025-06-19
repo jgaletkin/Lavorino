@@ -1,33 +1,79 @@
-'use client';
+import { createInstance } from 'i18next'
+import { initReactI18next, useTranslation } from 'react-i18next'
+import resourcesToBackend from 'i18next-resources-to-backend'
+import { useEffect, useState } from 'react'
 
-import { createInstance } from 'i18next';
-import resourcesToBackend from 'i18next-resources-to-backend';
-import { initReactI18next } from 'react-i18next/initReactI18next';
-import { getOptions, Locale } from './settings';
-import { useTranslation as useTranslationOriginal } from 'react-i18next';
+// Import all translations
+import enCommon from './locales/en/common.json'
+import enHome from './locales/en/home.json'
+import enProviderDashboard from './locales/en/provider-dashboard.json'
+import enProviderHistory from './locales/en/provider-history.json'
+import enProviderCalendar from './locales/en/provider-calendar.json'
+import enProviderOnboarding from './locales/en/provider-onboarding.json'
 
-// Create a singleton instance for client-side
-let i18nInstance: any = null;
+import itCommon from './locales/it/common.json'
+import itHome from './locales/it/home.json'
+import itProviderDashboard from './locales/it/provider-dashboard.json'
+import itProviderHistory from './locales/it/provider-history.json'
+import itProviderCalendar from './locales/it/provider-calendar.json'
+import itProviderOnboarding from './locales/it/provider-onboarding.json'
 
-const initI18next = async (lng: Locale, ns: string) => {
-  if (!i18nInstance) {
-    i18nInstance = createInstance();
-    await i18nInstance
-      .use(initReactI18next)
-      .use(resourcesToBackend((language: string, namespace: string) => 
-        import(`./locales/${language}/${namespace}.json`)))
-      .init(getOptions(lng, ns));
+const resources = {
+  en: {
+    common: enCommon,
+    home: enHome,
+    'provider-dashboard': enProviderDashboard,
+    'provider-history': enProviderHistory,
+    'provider-calendar': enProviderCalendar,
+    'provider-onboarding': enProviderOnboarding
+  },
+  it: {
+    common: itCommon,
+    home: itHome,
+    'provider-dashboard': itProviderDashboard,
+    'provider-history': itProviderHistory,
+    'provider-calendar': itProviderCalendar,
+    'provider-onboarding': itProviderOnboarding
   }
-  return i18nInstance;
-};
+}
 
-// This is a client-side hook that should only be used in client components
-export function useClientTranslation(lng: Locale, ns: string | string[] = 'common') {
-  const namespaces = Array.isArray(ns) ? ns : [ns];
-  const { t, i18n } = useTranslationOriginal(namespaces, {
-    lng,
-    useSuspense: false,
-  });
+const initI18next = async (locale: string) => {
+  const i18nInstance = createInstance()
+  await i18nInstance
+    .use(initReactI18next)
+    .use(resourcesToBackend((language: string, namespace: string) => 
+      import(`./locales/${language}/${namespace}.json`)
+    ))
+    .init({
+      lng: locale,
+      fallbackLng: 'en',
+      debug: process.env.NODE_ENV === 'development',
+      resources,
+      interpolation: {
+        escapeValue: false,
+      },
+    })
+  return i18nInstance
+}
 
-  return { t, i18n };
-} 
+export function useClientTranslation(locale: string, namespaces: string | string[]) {
+  const [i18nInstance, setI18nInstance] = useState<any>(null)
+  const [isReady, setIsReady] = useState(false)
+
+  useEffect(() => {
+    const init = async () => {
+      const instance = await initI18next(locale)
+      setI18nInstance(instance)
+      setIsReady(true)
+    }
+    init()
+  }, [locale])
+
+  if (!isReady || !i18nInstance) {
+    return { t: (key: string) => key, i18n: null }
+  }
+
+  return useTranslation(namespaces, { i18n: i18nInstance })
+}
+
+export default initI18next 

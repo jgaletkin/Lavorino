@@ -1,0 +1,13 @@
+{
+  "title": "Dashboard Fornitore",
+  "welcome": "Bentornato",
+  "stats": {
+    "appointments": "Appuntamenti",
+    "revenue": "Ricavi",
+    "rating": "Valutazione"
+  },
+  "upcoming": {
+    "title": "Prossimi Appuntamenti",
+    "noAppointments": "Nessun appuntamento in programma"
+  }
+} 

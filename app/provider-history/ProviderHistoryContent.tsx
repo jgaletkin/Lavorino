@@ -15,11 +15,12 @@ interface ProviderHistoryContentProps {
 
 export default function ProviderHistoryContent({ locale }: ProviderHistoryContentProps) {
   const router = useRouter()
-  const { t } = useClientTranslation(locale, 'provider-history')
+  const { t } = useClientTranslation(locale, ['common'])
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null)
+  const [filterStatus, setFilterStatus] = useState<string>('all')
 
   useEffect(() => {
     // Simulate loading business data from localStorage
@@ -40,10 +41,10 @@ export default function ProviderHistoryContent({ locale }: ProviderHistoryConten
 
   const filteredTransactions = transactions.filter(transaction => {
     const searchLower = searchQuery.toLowerCase()
-    return (
-      transaction.customerName.toLowerCase().includes(searchLower) ||
-      transaction.serviceType.toLowerCase().includes(searchLower)
-    )
+    const matchesSearch = transaction.customerName.toLowerCase().includes(searchLower) ||
+                         transaction.serviceType.toLowerCase().includes(searchLower)
+    const matchesStatus = filterStatus === 'all' || transaction.status === filterStatus
+    return matchesSearch && matchesStatus
   })
 
   if (loading) {

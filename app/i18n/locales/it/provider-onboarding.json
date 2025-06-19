@@ -1,0 +1,16 @@
+{
+  "title": "Registrazione Fornitore",
+  "description": "Completa il tuo profilo per iniziare ad accettare prenotazioni",
+  "personalInfo": "Informazioni Personali",
+  "professionalInfo": "Informazioni Professionali",
+  "availability": "Disponibilità",
+  "name": "Nome",
+  "email": "Email",
+  "phone": "Telefono",
+  "specialization": "Specializzazione",
+  "experience": "Anni di Esperienza",
+  "bio": "Biografia",
+  "availabilityDescription": "Imposta i tuoi orari e disponibilità",
+  "setAvailability": "Imposta Disponibilità",
+  "completeSetup": "Completa Configurazione"
+} 
