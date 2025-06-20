@@ -2,9 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Locale } from '../i18n/settings'
-import LanguageSwitcher from '../components/LanguageSwitcher'
-import ProviderMenu from '../components/ProviderMenu'
 
 interface Appointment {
   id: string
@@ -14,11 +11,7 @@ interface Appointment {
   customer: string
 }
 
-interface ProviderCalendarClientProps {
-  locale: Locale;
-}
-
-export default function ProviderCalendarClient({ locale }: ProviderCalendarClientProps) {
+export default function ProviderCalendarClient() {
   const router = useRouter()
   const [currentDate] = useState(new Date())
 
@@ -43,7 +36,9 @@ export default function ProviderCalendarClient({ locale }: ProviderCalendarClien
   }, [])
 
   const handleLogout = () => {
-    localStorage.removeItem('auth-token')
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('auth-token')
+    }
     router.push('/')
   }
 
@@ -64,8 +59,12 @@ export default function ProviderCalendarClient({ locale }: ProviderCalendarClien
             <div className="flex justify-between items-center">
               <h1 className="text-3xl font-bold text-gray-900">Calendar</h1>
               <div className="flex items-center space-x-4">
-                <LanguageSwitcher locale={locale} />
-                <ProviderMenu locale={locale} />
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                >
+                  Logout
+                </button>
               </div>
             </div>
           </div>

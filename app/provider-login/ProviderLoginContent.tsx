@@ -2,14 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import { Locale } from '../i18n/settings'
-import LanguageSwitcher from '../components/LanguageSwitcher'
 
-interface ProviderLoginContentProps {
-  locale: Locale;
-}
-
-export default function ProviderLoginContent({ locale }: ProviderLoginContentProps) {
+export default function ProviderLoginContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -65,17 +59,11 @@ export default function ProviderLoginContent({ locale }: ProviderLoginContentPro
   const handleAppleLogin = (e: React.FormEvent) => handleLogin(e)
 
   const handleSwitchToProvider = () => {
-    const lang = pathname?.split('/')[1] || 'en'
-    router.push(`/${lang}/provider-login`)
+    router.push('/provider-login')
   }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      {/* Language Switch Button */}
-      <div className="absolute top-6 right-6">
-        <LanguageSwitcher locale={locale} />
-      </div>
-
       {/* GDPR Notice Modal */}
       {showGDPRNotice && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -200,7 +188,7 @@ export default function ProviderLoginContent({ locale }: ProviderLoginContentPro
               onClick={handleSwitchToProvider}
               className="w-full text-center text-sm text-emerald-600 hover:text-emerald-500"
             >
-              Switch to Customer Login
+              Switch to Provider Login
             </button>
           </div>
         </div>

@@ -1,15 +1,6 @@
 'use client'
 
-// import { useClientTranslation } from '../i18n/client'
-import { Locale } from '../i18n/settings'
-
-interface ProviderCalendarContentProps {
-  locale: Locale;
-}
-
-export default function ProviderCalendarContent({ locale: _ }: ProviderCalendarContentProps) {
-  // const { t } = useClientTranslation(locale, 'provider-calendar')
-
+export default function ProviderCalendarContent() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -27,19 +18,19 @@ export default function ProviderCalendarContent({ locale: _ }: ProviderCalendarC
           <div className="flex justify-between items-center mb-6">
             <div className="flex space-x-4">
               <button className="px-3 py-1 border rounded-md hover:bg-gray-50">
-                {/* {t('provider-calendar.today')} */}
+                Today
               </button>
               <div className="flex space-x-2">
                 <button className="px-3 py-1 border rounded-md hover:bg-gray-50">
-                  {/* {t('provider-calendar.previous')} */}
+                  Previous
                 </button>
                 <button className="px-3 py-1 border rounded-md hover:bg-gray-50">
-                  {/* {t('provider-calendar.next')} */}
+                  Next
                 </button>
               </div>
             </div>
             <h2 className="text-lg font-semibold">
-              {/* {t('provider-calendar.currentMonth')} */}
+              January 2024
             </h2>
           </div>
 
@@ -48,7 +39,7 @@ export default function ProviderCalendarContent({ locale: _ }: ProviderCalendarC
             {/* Day headers */}
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
               <div key={day} className="bg-white p-2 text-center text-sm font-medium text-gray-500">
-                {/* {t(`provider-calendar.days.${day.toLowerCase()}`)} */}
+                {day}
               </div>
             ))}
 

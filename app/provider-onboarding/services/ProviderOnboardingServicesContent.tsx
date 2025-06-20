@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Locale } from '../../i18n/settings'
-import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 interface ServiceDetails {
   description: string
@@ -21,11 +19,7 @@ interface ServiceDetails {
   }
 }
 
-interface ProviderOnboardingServicesContentProps {
-  locale: Locale;
-}
-
-export default function ProviderOnboardingServicesContent({ locale: _ }: ProviderOnboardingServicesContentProps) {
+export default function ProviderOnboardingServicesContent() {
   const router = useRouter()
   const [services, setServices] = useState<Record<string, ServiceDetails>>({})
   const [uniformHours, setUniformHours] = useState(false)
@@ -107,11 +101,6 @@ export default function ProviderOnboardingServicesContent({ locale: _ }: Provide
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      {/* Language Switch Button */}
-      <div className="absolute top-6 right-6">
-        <LanguageSwitcher locale={_} />
-      </div>
-
       <div className="sm:mx-auto sm:w-full sm:max-w-3xl">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
           Services Configuration

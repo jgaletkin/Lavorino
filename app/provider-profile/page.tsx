@@ -1,6 +1,10 @@
-import { Locale } from '../i18n/settings'
+import ClientLayout from '../ClientLayout'
 import ProviderProfileContent from './ProviderProfileContent'
 
 export default function ProviderProfile() {
-  return <ProviderProfileContent locale={'en' as Locale} />
+  return (
+    <ClientLayout>
+      <ProviderProfileContent />
+    </ClientLayout>
+  )
 } 

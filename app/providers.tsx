@@ -4,14 +4,10 @@
 // import i18next from './i18n/client';
 // import { UserProvider } from '@/lib/contexts/UserContext';
 
-import { Locale } from './i18n/settings'
+import ClientLayout from './ClientLayout'
 import ProvidersContent from './providers/ProvidersContent'
 
-interface PageProps {
-  params: { locale: Locale }
-}
-
-export default function Providers({ params: { locale } }: PageProps) {
+export default function Providers() {
   // if (typeof window !== 'undefined') {
   //   i18next.changeLanguage(lang);
   // }
@@ -22,6 +18,8 @@ export default function Providers({ params: { locale } }: PageProps) {
     //     {children}
     //   </UserProvider>
     // </I18nextProvider>
-    <ProvidersContent locale={locale} />
+    <ClientLayout>
+      <ProvidersContent />
+    </ClientLayout>
   );
 } 

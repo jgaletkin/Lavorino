@@ -1,7 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-// import Providers from './providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -10,6 +9,9 @@ export const metadata: Metadata = {
   description: 'Find and book local service providers',
 }
 
+// Force dynamic rendering to avoid static generation issues
+export const dynamic = 'force-dynamic'
+
 export default function RootLayout({
   children,
 }: {
@@ -17,8 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body>
-        {/* <Providers lang={lang}>{children}</Providers> */}
+      <body className={inter.className}>
         {children}
       </body>
     </html>

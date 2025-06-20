@@ -2,14 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Locale } from '../i18n/settings';
-import LanguageSwitcher from '../components/LanguageSwitcher';
 import ProviderMenu from '../components/ProviderMenu';
 import type { Transaction } from '../lib/types';
 import { mockTransactions } from '../lib/mockData';
 
 interface ProviderDashboardClientProps {
-  locale: Locale;
   translations: {
     welcome: string;
     stats: {
@@ -24,7 +21,7 @@ interface ProviderDashboardClientProps {
   };
 }
 
-export default function ProviderDashboardClient({ locale, translations }: ProviderDashboardClientProps) {
+export default function ProviderDashboardClient({ translations }: ProviderDashboardClientProps) {
   const router = useRouter();
   const [appointments, setAppointments] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,16 +35,15 @@ export default function ProviderDashboardClient({ locale, translations }: Provid
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('auth-token');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('auth-token');
+    }
     router.push('/');
   };
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
-        <div className="absolute top-6 right-6">
-          <LanguageSwitcher locale={locale} />
-        </div>
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading dashboard...</p>
@@ -58,11 +54,6 @@ export default function ProviderDashboardClient({ locale, translations }: Provid
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
-      {/* Language Switch Button */}
-      <div className="absolute top-6 right-6">
-        <LanguageSwitcher locale={locale} />
-      </div>
-
       <div className="sm:mx-auto sm:w-full sm:max-w-4xl">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
           {translations.welcome}
@@ -114,7 +105,7 @@ export default function ProviderDashboardClient({ locale, translations }: Provid
 
           {/* Navigation */}
           <div className="flex justify-between items-center">
-            <ProviderMenu locale={locale} />
+            <ProviderMenu />
             <button
               onClick={handleLogout}
               className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"

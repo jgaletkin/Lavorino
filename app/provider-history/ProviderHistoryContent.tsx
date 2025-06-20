@@ -2,9 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useClientTranslation } from '../i18n/client'
-import { Locale } from '../i18n/settings'
-import LanguageSwitcher from '../components/LanguageSwitcher'
 import ProviderMenu from '../components/ProviderMenu'
 
 interface Transaction {
@@ -16,11 +13,7 @@ interface Transaction {
   status: 'completed' | 'pending' | 'cancelled'
 }
 
-interface ProviderHistoryContentProps {
-  locale: Locale;
-}
-
-export default function ProviderHistoryContent({ locale }: ProviderHistoryContentProps) {
+export default function ProviderHistoryContent() {
   const router = useRouter()
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [loading, setLoading] = useState(true)
@@ -86,8 +79,7 @@ export default function ProviderHistoryContent({ locale }: ProviderHistoryConten
               <div className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold text-gray-900">Transaction History</h1>
                 <div className="flex items-center space-x-4">
-                  <LanguageSwitcher locale={locale} />
-                  <ProviderMenu locale={locale} />
+                  <ProviderMenu />
                 </div>
               </div>
             </div>
@@ -120,8 +112,7 @@ export default function ProviderHistoryContent({ locale }: ProviderHistoryConten
             <div className="flex justify-between items-center">
               <h1 className="text-3xl font-bold text-gray-900">Transaction History</h1>
               <div className="flex items-center space-x-4">
-                <LanguageSwitcher locale={locale} />
-                <ProviderMenu locale={locale} />
+                <ProviderMenu />
               </div>
             </div>
           </div>

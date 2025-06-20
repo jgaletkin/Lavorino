@@ -1,7 +1,6 @@
 import { Provider } from '@/lib/types'
 import { StarIcon } from '@heroicons/react/20/solid'
 import Image from 'next/image'
-import { useTranslation } from 'react-i18next'
 
 interface ProviderListProps {
   providers: Provider[]
@@ -14,8 +13,6 @@ export default function ProviderList({
   onSelectProvider,
   isGridView = false
 }: ProviderListProps) {
-  const { t } = useTranslation('providers')
-
   if (isGridView) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -42,7 +39,7 @@ export default function ProviderList({
                   <StarIcon className="h-5 w-5 text-yellow-400" />
                   <span className="ml-1">{provider.rating}</span>
                   <span className="mx-1">•</span>
-                  <span>{provider.reviewCount} {t('providers:provider.reviews')}</span>
+                  <span>{provider.reviewCount} reviews</span>
                 </div>
               </div>
 
@@ -96,7 +93,7 @@ export default function ProviderList({
                 <StarIcon className="h-5 w-5 text-yellow-400" />
                 <span className="ml-1">{provider.rating}</span>
                 <span className="mx-1">•</span>
-                <span>{provider.reviewCount} {t('providers:provider.reviews')}</span>
+                <span>{provider.reviewCount} reviews</span>
               </div>
             </div>
 

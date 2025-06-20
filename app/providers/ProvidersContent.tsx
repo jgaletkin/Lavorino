@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Locale } from '../i18n/settings'
 import { Provider } from '../../lib/types'
 import { mockProviders } from '../../lib/mockData'
 import ProviderList from './components/ProviderList'
@@ -10,11 +9,7 @@ import ProviderDetailPanel from './components/ProviderDetailPanel'
 import { Squares2X2Icon, TableCellsIcon } from '@heroicons/react/24/outline'
 import TopNav from '@/components/TopNav'
 
-interface ProvidersContentProps {
-  locale: Locale
-}
-
-export default function ProvidersContent({ locale: _ }: ProvidersContentProps) {
+export default function ProvidersContent() {
   const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null)
   const [isGridView, setIsGridView] = useState(false)
   const [providers, setProviders] = useState<Provider[]>([])

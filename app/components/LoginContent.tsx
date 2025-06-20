@@ -2,11 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
-import LanguageSwitcher from './LanguageSwitcher'
 
 export default function LoginContent() {
-  const { t, i18n } = useTranslation(['login', 'common'])
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -15,20 +12,19 @@ export default function LoginContent() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    // Get language from URL path
-    const lang = pathname?.split('/')[1]
-    if (lang && i18n.language !== lang) {
-      i18n.changeLanguage(lang)
+    // Check if user has already consented (only in browser)
+    if (typeof window !== 'undefined') {
+      const hasConsented = localStorage.getItem('gdpr-consent')
+      if (!hasConsented) {
+        setShowGDPRNotice(true)
+      }
     }
-    // Check if user has already consented
-    const hasConsented = localStorage.getItem('gdpr-consent')
-    if (!hasConsented) {
-      setShowGDPRNotice(true)
-    }
-  }, [pathname, i18n])
+  }, [])
 
   const handleGDPRConsent = () => {
-    localStorage.setItem('gdpr-consent', 'true')
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('gdpr-consent', 'true')
+    }
     setShowGDPRNotice(false)
   }
 
@@ -67,17 +63,11 @@ export default function LoginContent() {
   const handleAppleLogin = (e: React.FormEvent) => handleLogin(e)
 
   const handleSwitchToProvider = () => {
-    const lang = pathname?.split('/')[1] || 'en'
-    router.push(`/${lang}/provider-login`)
+    router.push('/provider-login')
   }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      {/* Language Switch Button */}
-      <div className="absolute top-6 right-6">
-        <LanguageSwitcher locale={"en"} />
-      </div>
-
       {/* GDPR Notice Modal */}
       {showGDPRNotice && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -202,7 +192,7 @@ export default function LoginContent() {
               onClick={handleSwitchToProvider}
               className="w-full text-center text-sm text-gray-600 hover:text-gray-900"
             >
-              {t('login.switchToBusiness')}
+              Are you a service provider? Sign in here
             </button>
           </div>
         </div>

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 
 interface FilterBarProps {
@@ -18,27 +17,26 @@ interface FilterOptions {
 
 // List of available specialties based on the mock data
 const availableSpecialties = [
-  'Elettricista',
-  'Idraulico',
-  'Costruzione',
-  'Manutenzione',
+  'Electrician',
+  'Plumber',
+  'Construction',
+  'Maintenance',
   'IT',
-  'Pulizie',
-  'Giardinaggio',
-  'Trasloco',
-  'Installazione',
-  'Riparazioni',
-  'Bricolage',
-  'Supporto Tecnico',
-  'Progettazione',
-  'Ristrutturazione',
-  'Sostenibilità',
-  'Trasporto',
-  'Montaggio'
+  'Cleaning',
+  'Gardening',
+  'Moving',
+  'Installation',
+  'Repairs',
+  'DIY',
+  'Technical Support',
+  'Design',
+  'Renovation',
+  'Sustainability',
+  'Transport',
+  'Assembly'
 ]
 
 export default function FilterBar({ onFilterChange }: FilterBarProps) {
-  const { t } = useTranslation('providers')
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
   const [priceRange, setPriceRange] = useState<[number, number] | null>(null)
@@ -77,7 +75,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
         <input
           type="text"
           className="block w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-          placeholder={t('providers:filters.searchPlaceholder')}
+          placeholder="Search providers..."
           value={search}
           onChange={(e) => handleSearchChange(e.target.value)}
         />
@@ -88,7 +86,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
         {/* Rating Filter */}
         <div className="flex items-center space-x-2">
           <label className="text-sm font-medium text-gray-700">
-            {t('providers:filters.rating')}:
+            Rating:
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
@@ -98,17 +96,17 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
               handleRatingChange(value)
             }}
           >
-            <option value="">{t('providers:filters.any')}</option>
-            <option value="4">4+ {t('providers:filters.stars')}</option>
-            <option value="3">3+ {t('providers:filters.stars')}</option>
-            <option value="2">2+ {t('providers:filters.stars')}</option>
+            <option value="">Any</option>
+            <option value="4">4+ stars</option>
+            <option value="3">3+ stars</option>
+            <option value="2">2+ stars</option>
           </select>
         </div>
 
         {/* Price Range Filter */}
         <div className="flex items-center space-x-2">
           <label className="text-sm font-medium text-gray-700">
-            {t('providers:filters.price')}:
+            Price:
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
@@ -123,7 +121,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
               setPriceRange([min, max])
             }}
           >
-            <option value="">{t('providers:filters.any')}</option>
+            <option value="">Any</option>
             <option value="0-50">€0 - €50</option>
             <option value="50-100">€50 - €100</option>
             <option value="100-200">€100 - €200</option>
@@ -134,7 +132,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
         {/* Distance Filter */}
         <div className="flex items-center space-x-2">
           <label className="text-sm font-medium text-gray-700">
-            {t('providers:filters.distance')}:
+            Distance:
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
@@ -144,28 +142,28 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
               setDistance(value)
             }}
           >
-            <option value="">{t('providers:filters.any')}</option>
-            <option value="5">{t('providers:filters.distanceOptions.within5km')}</option>
-            <option value="10">{t('providers:filters.distanceOptions.within10km')}</option>
-            <option value="20">{t('providers:filters.distanceOptions.within20km')}</option>
-            <option value="50">{t('providers:filters.distanceOptions.within50km')}</option>
+            <option value="">Any</option>
+            <option value="5">Within 5km</option>
+            <option value="10">Within 10km</option>
+            <option value="20">Within 20km</option>
+            <option value="50">Within 50km</option>
           </select>
         </div>
 
         {/* Specialty Filter */}
         <div className="flex items-center space-x-2">
           <label className="text-sm font-medium text-gray-700">
-            {t('providers:filters.specialty')}:
+            Specialty:
           </label>
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
             value={category || ''}
             onChange={(e) => setCategory(e.target.value || '')}
           >
-            <option value="">{t('providers:filters.any')}</option>
+            <option value="">Any</option>
             {availableSpecialties.map((specialty) => (
               <option key={specialty} value={specialty}>
-                {t(`providers:filters.specialties.${specialty}`)}
+                {specialty}
               </option>
             ))}
           </select>

@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Locale } from '../../i18n/settings'
-import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 interface BusinessDetails {
   businessName: string
@@ -58,11 +56,7 @@ interface OnboardingData {
   }
 }
 
-interface ProviderOnboardingConfirmationContentProps {
-  locale: Locale
-}
-
-export default function ProviderOnboardingConfirmationContent({ locale }: ProviderOnboardingConfirmationContentProps) {
+export default function ProviderOnboardingConfirmationContent() {
   const router = useRouter()
   const [onboardingData, setOnboardingData] = useState<OnboardingData | null>(null)
   const [isInfoConfirmed, setIsInfoConfirmed] = useState(false)
@@ -141,17 +135,12 @@ export default function ProviderOnboardingConfirmationContent({ locale }: Provid
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
-      {/* Language Switch Button */}
-      <div className="absolute top-6 right-6">
-        <LanguageSwitcher locale={locale} />
-      </div>
-
       <div className="sm:mx-auto sm:w-full sm:max-w-3xl">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          {/* Translation placeholder */}
+          Review Your Information
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          {/* Translation placeholder */}
+          Please review all the information before completing your registration
         </p>
       </div>
 
@@ -211,100 +200,64 @@ export default function ProviderOnboardingConfirmationContent({ locale }: Provid
             {/* Services Section */}
             <div>
               <h3 className="text-lg font-medium text-gray-900 mb-4">Services</h3>
-              <div className="space-y-6">
-                {Object.entries(onboardingData.services).map(([serviceName, service]) => (
-                  <div key={serviceName} className="border-t border-gray-200 pt-4">
-                    <h4 className="text-md font-medium text-gray-900">{serviceName}</h4>
-                    <dl className="mt-2 grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
-                      <div>
-                        <dt className="text-sm font-medium text-gray-500">Description</dt>
-                        <dd className="mt-1 text-sm text-gray-900">{service.description}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-sm font-medium text-gray-500">Pricing Model</dt>
-                        <dd className="mt-1 text-sm text-gray-900">{service.pricingModel}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-sm font-medium text-gray-500">Price Range</dt>
-                        <dd className="mt-1 text-sm text-gray-900">
-                          {service.priceRange.min} - {service.priceRange.max}
-                        </dd>
-                      </div>
-                    </dl>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Working Hours Section */}
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                {onboardingData.uniformHours ? 'Working Hours' : 'Service Availability'}
-              </h3>
-              <div className="space-y-2">
-                {Object.entries(
-                  onboardingData.uniformHours 
-                    ? onboardingData.uniformAvailability! 
-                    : onboardingData.services[Object.keys(onboardingData.services)[0]].availability
-                ).map(([day, schedule]) => (
-                  <div key={day} className="flex items-center space-x-4">
-                    <span className="w-32 text-sm text-gray-700">{day}</span>
-                    {schedule.available ? (
-                      <span className="text-sm text-gray-900">
-                        {schedule.start} - {schedule.end}
-                      </span>
-                    ) : (
-                      <span className="text-sm text-gray-500">Not available</span>
-                    )}
-                  </div>
-                ))}
-              </div>
+              {Object.keys(onboardingData.services).length === 0 ? (
+                <p className="text-gray-500">No services configured.</p>
+              ) : (
+                <div className="space-y-4">
+                  {Object.entries(onboardingData.services).map(([serviceName, service]) => (
+                    <div key={serviceName} className="border rounded-lg p-4">
+                      <h4 className="font-medium text-gray-900">{serviceName}</h4>
+                      <p className="text-sm text-gray-600 mt-1">{service.description}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Confirmation Checkboxes */}
             <div className="space-y-4">
-              <label className="flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    type="checkbox"
-                    checked={isInfoConfirmed}
-                    onChange={(e) => setIsInfoConfirmed(e.target.checked)}
-                    className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <span className="text-gray-700">
-                    {/* Translation placeholder */}
-                  </span>
-                </div>
-              </label>
-
-              <label className="flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    type="checkbox"
-                    checked={isTermsAccepted}
-                    onChange={(e) => setIsTermsAccepted(e.target.checked)}
-                    className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <span className="text-gray-700">
-                    {/* Translation placeholder */}
-                  </span>
-                </div>
-              </label>
+              <div className="flex items-start">
+                <input
+                  type="checkbox"
+                  id="infoConfirmed"
+                  checked={isInfoConfirmed}
+                  onChange={(e) => setIsInfoConfirmed(e.target.checked)}
+                  className="mt-1 h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
+                />
+                <label htmlFor="infoConfirmed" className="ml-2 text-sm text-gray-700">
+                  I confirm that all the information provided is accurate and complete
+                </label>
+              </div>
+              <div className="flex items-start">
+                <input
+                  type="checkbox"
+                  id="termsAccepted"
+                  checked={isTermsAccepted}
+                  onChange={(e) => setIsTermsAccepted(e.target.checked)}
+                  className="mt-1 h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
+                />
+                <label htmlFor="termsAccepted" className="ml-2 text-sm text-gray-700">
+                  I agree to the terms and conditions and privacy policy
+                </label>
+              </div>
             </div>
 
-            {/* Submit Button */}
-            <div>
+            {/* Navigation */}
+            <div className="flex justify-between">
+              <button
+                type="button"
+                onClick={() => router.push('/provider-onboarding/services')}
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+              >
+                Back
+              </button>
               <button
                 type="button"
                 onClick={handleSave}
                 disabled={!isInfoConfirmed || !isTermsAccepted || isSaving}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 text-sm font-medium text-white bg-emerald-600 rounded-md hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSaving ? 'Creating Profile...' : 'Create Profile'}
+                {isSaving ? 'Saving...' : 'Complete Registration'}
               </button>
             </div>
           </div>

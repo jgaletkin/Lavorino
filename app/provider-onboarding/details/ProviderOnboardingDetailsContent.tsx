@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Locale } from '../../i18n/settings'
-import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 const BUSINESS_CATEGORIES = [
   'Construction',
@@ -18,11 +16,7 @@ const BUSINESS_CATEGORIES = [
   'Cleaning Services'
 ]
 
-interface ProviderOnboardingDetailsContentProps {
-  locale: Locale;
-}
-
-export default function ProviderOnboardingDetailsContent({ locale }: ProviderOnboardingDetailsContentProps) {
+export default function ProviderOnboardingDetailsContent() {
   const router = useRouter()
   const [formData, setFormData] = useState({
     businessName: '',
@@ -100,11 +94,6 @@ export default function ProviderOnboardingDetailsContent({ locale }: ProviderOnb
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
-      {/* Language Switch Button */}
-      <div className="absolute top-6 right-6">
-        <LanguageSwitcher locale={locale} />
-      </div>
-
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
           Business Details
@@ -198,47 +187,7 @@ export default function ProviderOnboardingDetailsContent({ locale }: ProviderOnb
               </div>
             </div>
 
-            {/* Images */}
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="logo" className="block text-sm font-medium text-gray-700">
-                  Business Logo
-                </label>
-                <input
-                  type="file"
-                  name="logo"
-                  id="logo"
-                  accept="image/*"
-                  onChange={(e) => handleFileChange(e, 'logo')}
-                  className="mt-1 block w-full text-sm text-gray-500
-                    file:mr-4 file:py-2 file:px-4
-                    file:rounded-md file:border-0
-                    file:text-sm file:font-medium
-                    file:bg-emerald-50 file:text-emerald-700
-                    hover:file:bg-emerald-100"
-                />
-              </div>
-              <div>
-                <label htmlFor="coverImage" className="block text-sm font-medium text-gray-700">
-                  Cover Image
-                </label>
-                <input
-                  type="file"
-                  name="coverImage"
-                  id="coverImage"
-                  accept="image/*"
-                  onChange={(e) => handleFileChange(e, 'coverImage')}
-                  className="mt-1 block w-full text-sm text-gray-500
-                    file:mr-4 file:py-2 file:px-4
-                    file:rounded-md file:border-0
-                    file:text-sm file:font-medium
-                    file:bg-emerald-50 file:text-emerald-700
-                    hover:file:bg-emerald-100"
-                />
-              </div>
-            </div>
-
-            {/* Contact Details */}
+            {/* Contact Information */}
             <div className="space-y-4">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -285,7 +234,7 @@ export default function ProviderOnboardingDetailsContent({ locale }: ProviderOnb
 
             {/* Social Media */}
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-gray-700">Social Media</h3>
+              <h3 className="text-lg font-medium text-gray-900">Social Media (Optional)</h3>
               <div>
                 <label htmlFor="facebook" className="block text-sm font-medium text-gray-700">
                   Facebook
@@ -327,12 +276,13 @@ export default function ProviderOnboardingDetailsContent({ locale }: ProviderOnb
               </div>
             </div>
 
+            {/* Submit Button */}
             <div>
               <button
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
               >
-                Continue to Owner Information
+                Continue
               </button>
             </div>
           </form>

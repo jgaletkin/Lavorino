@@ -1,15 +1,12 @@
 import Image from 'next/image'
 import { Provider } from '@/lib/types'
 import { StarIcon } from '@heroicons/react/20/solid'
-import { useTranslation } from 'react-i18next'
 
 interface ProviderCardProps {
   provider: Provider
 }
 
 export default function ProviderCard({ provider }: ProviderCardProps) {
-  const { t } = useTranslation('providers')
-
   return (
     <div className="group relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md">
       <div className="relative h-48 w-full overflow-hidden">
@@ -29,7 +26,7 @@ export default function ProviderCard({ provider }: ProviderCardProps) {
             <StarIcon className="h-5 w-5 text-yellow-400" />
             <span className="ml-1">{provider.rating}</span>
             <span className="mx-1">•</span>
-            <span>{provider.reviewCount} {t('providers:provider.reviews')}</span>
+            <span>{provider.reviewCount} reviews</span>
           </div>
         </div>
 

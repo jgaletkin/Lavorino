@@ -2,19 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Locale } from '../i18n/settings'
-import LanguageSwitcher from './LanguageSwitcher'
 
-interface TopNavProps {
-  locale: Locale;
-  translations: {
-    logo: string;
-    providers: string;
-    logout: string;
-  };
-}
-
-export default function TopNav({ locale, translations }: TopNavProps): JSX.Element | null {
+export default function TopNav(): JSX.Element | null {
   const pathname = usePathname()
   const router = useRouter()
 
@@ -24,8 +13,10 @@ export default function TopNav({ locale, translations }: TopNavProps): JSX.Eleme
   }
 
   const handleLogout = (): void => {
-    // Clear any auth tokens or user data
-    localStorage.removeItem('auth-token')
+    // Clear any auth tokens or user data (only in browser)
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('auth-token')
+    }
     // Redirect to login page
     router.push('/')
   }
@@ -37,7 +28,7 @@ export default function TopNav({ locale, translations }: TopNavProps): JSX.Eleme
           <div className="flex items-center">
             <Link href="/providers" className="flex items-center">
               <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
-                {translations.logo}
+                Lavorino
               </span>
             </Link>
           </div>
@@ -51,15 +42,14 @@ export default function TopNav({ locale, translations }: TopNavProps): JSX.Eleme
                   : 'text-gray-900 hover:bg-gray-100'
               }`}
             >
-              {translations.providers}
+              Providers
             </Link>
             <button
               onClick={handleLogout}
               className="px-3 py-2 rounded-md text-sm font-medium text-gray-900 hover:bg-gray-100"
             >
-              {translations.logout}
+              Logout
             </button>
-            <LanguageSwitcher locale={locale} />
           </div>
         </div>
       </div>
