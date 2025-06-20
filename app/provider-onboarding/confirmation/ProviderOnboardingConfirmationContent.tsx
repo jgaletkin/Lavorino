@@ -150,51 +150,27 @@ export default function ProviderOnboardingConfirmationContent() {
             {/* Business Details Section */}
             <div>
               <h3 className="text-lg font-medium text-gray-900 mb-4">Business Information</h3>
-              <dl className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
-                <div>
+                <dl className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
                   <dt className="text-sm font-medium text-gray-500">Business Name</dt>
                   <dd className="mt-1 text-sm text-gray-900">{onboardingData.businessDetails.businessName}</dd>
-                </div>
-                <div>
                   <dt className="text-sm font-medium text-gray-500">Business Type</dt>
                   <dd className="mt-1 text-sm text-gray-900">{onboardingData.businessDetails.businessType}</dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">Location</dt>
-                  <dd className="mt-1 text-sm text-gray-900">{onboardingData.businessDetails.location}</dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">Contact Email</dt>
-                  <dd className="mt-1 text-sm text-gray-900">{onboardingData.businessDetails.contact.email}</dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">Phone Number</dt>
-                  <dd className="mt-1 text-sm text-gray-900">{onboardingData.businessDetails.contact.phone}</dd>
-                </div>
-                {onboardingData.businessDetails.contact.website && (
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Website</dt>
-                    <dd className="mt-1 text-sm text-gray-900">{onboardingData.businessDetails.contact.website}</dd>
-                  </div>
-                )}
-              </dl>
+                </dl>
             </div>
 
             {/* Owner Details Section */}
             <div>
               <h3 className="text-lg font-medium text-gray-900 mb-4">Owner Information</h3>
-              <dl className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
-                <div>
+                <dl className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
                   <dt className="text-sm font-medium text-gray-500">Owner Name</dt>
                   <dd className="mt-1 text-sm text-gray-900">{onboardingData.ownerDetails.name}</dd>
-                </div>
-                {onboardingData.ownerDetails.registrationNumber && (
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Registration Number</dt>
-                    <dd className="mt-1 text-sm text-gray-900">{onboardingData.ownerDetails.registrationNumber}</dd>
-                  </div>
-                )}
-              </dl>
+                  {onboardingData.ownerDetails.registrationNumber && (
+                    <>
+                      <dt className="text-sm font-medium text-gray-500">Registration Number</dt>
+                      <dd className="mt-1 text-sm text-gray-900">{onboardingData.ownerDetails.registrationNumber}</dd>
+                    </>
+                  )}
+                </dl>
             </div>
 
             {/* Services Section */}
@@ -265,4 +241,4 @@ export default function ProviderOnboardingConfirmationContent() {
       </div>
     </div>
   )
-} 
+}
