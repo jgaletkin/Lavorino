@@ -1,8 +1,6 @@
-import { Locale } from '../i18n/settings'
 import ProviderHistoryContent from './ProviderHistoryContent'
+import { Locale } from '../i18n/settings'
 
-export const dynamic = 'force-dynamic'
-
-export default function ProviderHistory() {
+export default function ProviderHistoryPage() {
   return <ProviderHistoryContent locale={'en' as Locale} />
 } 

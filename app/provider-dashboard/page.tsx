@@ -1,9 +1,7 @@
-import { Locale } from '../i18n/settings'
 import ProviderDashboardClient from './ProviderDashboardClient'
+import { Locale } from '../i18n/settings'
 
-export const dynamic = 'force-dynamic'
-
-export default function ProviderDashboard() {
+export default function ProviderDashboardPage() {
   const translations = {
     welcome: 'Welcome to your Dashboard',
     stats: {

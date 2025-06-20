@@ -3,9 +3,9 @@ import { Locale, locales } from '../../i18n/settings'
 import ProviderDashboardClient from '../../provider-dashboard/ProviderDashboardClient'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     locale: Locale;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -14,7 +14,8 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function ProviderDashboard({ params: { locale } }: PageProps) {
+export default async function ProviderDashboard({ params }: PageProps) {
+  const { locale } = await params
   const { t } = await getTranslations(locale, 'provider-dashboard')
 
   const translations = {

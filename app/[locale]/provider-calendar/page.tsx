@@ -3,9 +3,9 @@ import { Locale, locales } from '../../i18n/settings'
 import ProviderCalendarContent from '../../provider-calendar/ProviderCalendarContent'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     locale: Locale;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -14,7 +14,8 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function ProviderCalendar({ params: { locale } }: PageProps) {
+export default async function ProviderCalendar({ params }: PageProps) {
+  const { locale } = await params
   const { t } = await getTranslations(locale, 'provider-calendar')
 
   return (

@@ -3,9 +3,9 @@ import { Locale, locales } from '../../i18n/settings'
 import ProviderOnboardingDetailsContent from '../../provider-onboarding/details/ProviderOnboardingDetailsContent'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     locale: Locale;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -14,17 +14,21 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function ProviderOnboarding({ params: { locale } }: PageProps) {
+export default async function ProviderOnboarding({ params }: PageProps) {
+  const { locale } = await params
   const { t } = await getTranslations(locale, 'provider-onboarding')
 
   return (
-    <main className="flex min-h-screen flex-col p-8">
-      <div className="max-w-3xl mx-auto w-full">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">{t('provider-onboarding.title')}</h1>
-          <p className="text-gray-600">{t('provider-onboarding.description')}</p>
+    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+      <div className="w-full max-w-md space-y-8">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight">
+            {t('provider-onboarding.title')}
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            {t('provider-onboarding.subtitle')}
+          </p>
         </div>
-        <ProviderOnboardingDetailsContent locale={locale} />
       </div>
     </main>
   )

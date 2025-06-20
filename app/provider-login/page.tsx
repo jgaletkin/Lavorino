@@ -1,8 +1,6 @@
-import { Locale } from '../i18n/settings'
 import ProviderLoginContent from './ProviderLoginContent'
+import { Locale } from '../i18n/settings'
 
-export const dynamic = 'force-dynamic'
-
-export default function ProviderLogin() {
+export default function ProviderLoginPage() {
   return <ProviderLoginContent locale={'en' as Locale} />
 } 

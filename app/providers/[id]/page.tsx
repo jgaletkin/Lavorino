@@ -1,9 +1,9 @@
 import ProviderDetailClient from './ProviderDetailClient';
 
 interface ProviderPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -15,6 +15,7 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function ProviderPage({ params }: ProviderPageProps) {
-  return <ProviderDetailClient id={params.id} />;
+export default async function ProviderPage({ params }: ProviderPageProps) {
+  const { id } = await params
+  return <ProviderDetailClient id={id} />;
 } 

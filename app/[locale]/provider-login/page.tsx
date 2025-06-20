@@ -8,10 +8,11 @@ export async function generateStaticParams() {
 }
 
 export default async function ProviderLogin({
-  params: { locale }
+  params
 }: {
-  params: { locale: Locale }
+  params: Promise<{ locale: Locale }>
 }) {
+  const { locale } = await params
   const { t } = await getTranslations(locale, 'provider-login')
 
   return (

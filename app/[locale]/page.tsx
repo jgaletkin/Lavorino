@@ -7,7 +7,8 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function HomePage({ params: { locale } }: { params: { locale: Locale } }) {
+export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params
   const { t } = await getTranslations(locale, 'home')
 
   return (

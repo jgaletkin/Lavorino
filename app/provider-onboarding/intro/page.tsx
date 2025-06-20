@@ -2,13 +2,9 @@ import Link from 'next/link'
 import { Locale } from '../../i18n/settings'
 import LanguageSwitcher from '../../components/LanguageSwitcher'
 
-export const dynamic = 'force-dynamic'
-
-interface PageProps {
-  params: { locale: Locale }
-}
-
-export default function ProviderOnboardingIntro({ params: { locale } }: PageProps) {
+export default function ProviderOnboardingIntroPage() {
+  const locale: Locale = 'en'
+  
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       {/* Language Switch Button */}
@@ -21,7 +17,7 @@ export default function ProviderOnboardingIntro({ params: { locale } }: PageProp
           Welcome to Lavorino
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Let&apos;s get your business set up in just a few steps
+          Let&apos;s get you set up as a service provider
         </p>
       </div>
 

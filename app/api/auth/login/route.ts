@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-static'
+export const revalidate = false
+
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json();

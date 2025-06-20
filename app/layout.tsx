@@ -8,19 +8,16 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Lavorino - Provider Marketplace',
   description: 'Find and book local service providers',
-  icons: {
-    icon: '/favicon.ico',
-  },
 }
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
-}): JSX.Element {
+}) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html>
+      <body>
         {/* <Providers lang={lang}>{children}</Providers> */}
         {children}
       </body>

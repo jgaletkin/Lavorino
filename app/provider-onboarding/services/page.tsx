@@ -1,14 +1,6 @@
-import { Locale } from '../../i18n/settings'
 import ProviderOnboardingServicesContent from './ProviderOnboardingServicesContent'
+import { Locale } from '../../i18n/settings'
 
-export const dynamic = 'force-dynamic'
-
-interface PageProps {
-  params: {
-    locale: Locale;
-  };
-}
-
-export default function ProviderOnboardingServices({ params: { locale } }: PageProps) {
-  return <ProviderOnboardingServicesContent locale={locale} />
+export default function ProviderOnboardingServicesPage() {
+  return <ProviderOnboardingServicesContent locale={'en' as Locale} />
 } 

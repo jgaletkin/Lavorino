@@ -6,10 +6,12 @@ const inter = Inter({ subsets: ['latin'] })
 
 interface LayoutProps {
   children: React.ReactNode
-  params: { locale: Locale }
+  params: Promise<{ locale: Locale }>
 }
 
-export default function LocaleLayout({ children, params: { locale } }: LayoutProps) {
+export default async function LocaleLayout({ children, params }: LayoutProps) {
+  const { locale } = await params
+  
   // Validate that the incoming `locale` parameter is valid
   if (!locales.includes(locale as Locale)) notFound()
 
