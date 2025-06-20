@@ -11,11 +11,11 @@ interface LanguageSwitcherProps {
   };
 }
 
-export default function LanguageSwitcher({ locale, translations }: LanguageSwitcherProps) {
+export default function LanguageSwitcher({ locale, translations }: LanguageSwitcherProps): JSX.Element {
   const router = useRouter()
   const pathname = usePathname()
 
-  const handleLanguageChange = (newLocale: Locale) => {
+  const handleLanguageChange = (newLocale: Locale): void => {
     if (!pathname) return
     const newPath = pathname.replace(`/${locale}`, `/${newLocale}`)
     router.push(newPath)

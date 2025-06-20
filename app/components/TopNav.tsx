@@ -14,7 +14,7 @@ interface TopNavProps {
   };
 }
 
-export default function TopNav({ locale, translations }: TopNavProps) {
+export default function TopNav({ locale, translations }: TopNavProps): JSX.Element | null {
   const pathname = usePathname()
   const router = useRouter()
 
@@ -23,7 +23,7 @@ export default function TopNav({ locale, translations }: TopNavProps) {
     return null;
   }
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     // Clear any auth tokens or user data
     localStorage.removeItem('auth-token')
     // Redirect to login page

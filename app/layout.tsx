@@ -2,7 +2,6 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 // import Providers from './providers'
-import { locales } from './i18n/settings'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,16 +13,16 @@ export const metadata: Metadata = {
   },
 }
 
-export async function generateStaticParams() {
-  return locales.map((locale: string) => ({ lang: locale }))
-}
-
-export default function RootLayout() {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}): JSX.Element {
   return (
     <html lang="en">
       <body className={inter.className}>
         {/* <Providers lang={lang}>{children}</Providers> */}
-        <div>Layout test placeholder</div>
+        {children}
       </body>
     </html>
   )

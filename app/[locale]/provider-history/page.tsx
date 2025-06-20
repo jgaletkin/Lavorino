@@ -1,11 +1,17 @@
 import { getTranslations } from '../../i18n/server'
-import { Locale } from '../../i18n/settings'
+import { Locale, locales } from '../../i18n/settings'
 import ProviderHistoryContent from '../../provider-history/ProviderHistoryContent'
 
 interface PageProps {
   params: {
     locale: Locale;
   };
+}
+
+export async function generateStaticParams() {
+  return locales.map((locale) => ({
+    locale,
+  }))
 }
 
 export default async function ProviderHistory({ params: { locale } }: PageProps) {

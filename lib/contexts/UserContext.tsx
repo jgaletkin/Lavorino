@@ -17,30 +17,41 @@ interface UserContextType {
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
-export function UserProvider({ children }: { children: React.ReactNode }) {
+export function UserProvider({ children }: { children: React.ReactNode }): JSX.Element {
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
-    // Check for user in localStorage on mount
-    const storedUser = localStorage.getItem('user')
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
+    // Check for user in localStorage on mount (only in browser)
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('user')
+      if (storedUser) {
+        try {
+          setUser(JSON.parse(storedUser))
+        } catch (error) {
+          console.error('Error parsing stored user:', error)
+          localStorage.removeItem('user')
+        }
+      }
     }
   }, [])
 
-  const handleSetUser = (newUser: User | null) => {
+  const handleSetUser = (newUser: User | null): void => {
     setUser(newUser)
-    if (newUser) {
-      localStorage.setItem('user', JSON.stringify(newUser))
-    } else {
-      localStorage.removeItem('user')
+    if (typeof window !== 'undefined') {
+      if (newUser) {
+        localStorage.setItem('user', JSON.stringify(newUser))
+      } else {
+        localStorage.removeItem('user')
+      }
     }
   }
 
-  const logout = () => {
+  const logout = (): void => {
     handleSetUser(null)
-    // Redirect to login page
-    window.location.href = '/login'
+    // Redirect to login page (only in browser)
+    if (typeof window !== 'undefined') {
+      window.location.href = '/login'
+    }
   }
 
   return (
@@ -50,7 +61,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   )
 }
 
-export function useUser() {
+export function useUser(): UserContextType {
   const context = useContext(UserContext)
   if (context === undefined) {
     throw new Error('useUser must be used within a UserProvider')

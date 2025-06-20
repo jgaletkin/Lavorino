@@ -1,11 +1,17 @@
 import { getTranslations } from '../../i18n/server'
-import { Locale } from '../../i18n/settings'
+import { Locale, locales } from '../../i18n/settings'
 import ProviderCalendarContent from '../../provider-calendar/ProviderCalendarContent'
 
 interface PageProps {
   params: {
     locale: Locale;
   };
+}
+
+export async function generateStaticParams() {
+  return locales.map((locale) => ({
+    locale,
+  }))
 }
 
 export default async function ProviderCalendar({ params: { locale } }: PageProps) {

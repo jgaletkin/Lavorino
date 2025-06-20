@@ -11,6 +11,11 @@ const nextConfig = {
     ],
     domains: ['images.unsplash.com'],
   },
+  experimental: {
+    serverComponentsExternalPackages: [],
+  },
+  // Disable static generation
+  staticPageGenerationTimeout: 0,
 }
 
 module.exports = nextConfig 

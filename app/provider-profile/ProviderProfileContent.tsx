@@ -383,7 +383,7 @@ export default function ProviderProfileContent({ locale }: ProviderProfileConten
                 )}
               </div>
               <div className="space-y-6">
-                {services.map((service: any, index: number) => (
+                {services.map((service: BusinessData['services'][0], index: number) => (
                   <div key={index} className="border-b border-gray-200 pb-6 last:border-0 last:pb-0">
                     {editingSection === 'services' ? (
                       <div className="space-y-4">

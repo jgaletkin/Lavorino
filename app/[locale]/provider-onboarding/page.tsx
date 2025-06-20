@@ -1,11 +1,17 @@
 import { getTranslations } from '../../i18n/server'
-import { Locale } from '../../i18n/settings'
+import { Locale, locales } from '../../i18n/settings'
 import ProviderOnboardingDetailsContent from '../../provider-onboarding/details/ProviderOnboardingDetailsContent'
 
 interface PageProps {
   params: {
     locale: Locale;
   };
+}
+
+export async function generateStaticParams() {
+  return locales.map((locale) => ({
+    locale,
+  }))
 }
 
 export default async function ProviderOnboarding({ params: { locale } }: PageProps) {

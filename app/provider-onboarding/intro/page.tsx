@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { Locale } from '../../i18n/settings'
 import LanguageSwitcher from '../../components/LanguageSwitcher'
 
+export const dynamic = 'force-dynamic'
+
 interface PageProps {
   params: { locale: Locale }
 }

@@ -1,5 +1,11 @@
 import { getTranslations } from '../../i18n/server'
-import { Locale } from '../../i18n/settings'
+import { Locale, locales } from '../../i18n/settings'
+
+export async function generateStaticParams() {
+  return locales.map((locale) => ({
+    locale,
+  }))
+}
 
 export default async function ProviderProfile({
   params: { locale }
